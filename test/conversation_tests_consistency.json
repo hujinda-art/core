@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "consistency_test_1",
+    "type": "consistency",
+    "turns": [
+      {
+        "role": "introduction",
+        "q": "我们接下来会进行一段对话，你需要在对话过程中记住用户的信息，并在后续回答中保持一致性。"
+      },
+      {
+        "role": "information",
+        "q": "我最喜欢的颜色是红色，你呢？"
+      },
+      {
+        "role": "distractor",
+        "q": "今天外面天气不错，很多人都选择去公园或者咖啡店放松一下。"
+      },
+      {
+        "role": "distractor",
+        "q": "在机器学习中，过拟合是指模型在训练集表现很好但在测试集表现较差的现象。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 56 * 19 的结果，并尽量不用计算器完成。"
+      },
+      {
+        "role": "distractor",
+        "q": "城市的交通拥堵问题通常在早晚高峰时最为严重。"
+      },
+      {
+        "role": "distractor",
+        "q": "光合作用是植物将二氧化碳和水转化为葡萄糖的过程。"
+      },
+      {
+        "role": "distractor",
+        "q": "请将这句话翻译成英文：人工智能正在快速发展。"
+      },
+      {
+        "role": "distractor",
+        "q": "在数学中，导数表示函数的瞬时变化率。"
+      },
+      {
+        "role": "distractor",
+        "q": "咖啡的风味与烘焙程度、产地和处理方式有关。"
+      },
+      {
+        "role": "evaluation",
+        "q": "刚才用户提到的喜欢的颜色是什么？",
+        "expected": "红色"
+      },
+      {
+        "role": "distractor",
+        "q": "递归是一种函数调用自身的编程技巧。"
+      },
+      {
+        "role": "distractor",
+        "q": "概率论中的期望值表示随机变量的平均结果。"
+      },
+      {
+        "role": "distractor",
+        "q": "请列举三种常见的机器学习算法。"
+      },
+      {
+        "role": "distractor",
+        "q": "地球绕太阳公转一周大约需要365天。"
+      },
+      {
+        "role": "distractor",
+        "q": "深度学习模型通常需要大量数据进行训练。"
+      },
+      {
+        "role": "evaluation",
+        "q": "你还记得用户说自己喜欢什么颜色吗？",
+        "expected": "红色"
+      },
+      {
+        "role": "distractor",
+        "q": "排序算法中快速排序的平均时间复杂度是 O(n log n)。"
+      },
+      {
+        "role": "distractor",
+        "q": "神经网络由输入层、隐藏层和输出层组成。"
+      },
+      {
+        "role": "evaluation",
+        "q": "最后再确认一次：用户喜欢的颜色是什么？",
+        "expected": "红色"
+      }
+    ]
+  },
+  {
+    "id": "consistency_test_2",
+    "type": "consistency",
+    "turns": [
+      {
+        "role": "introduction",
+        "q": "我们进行对话测试，请你记录并在后续对话中保持对用户信息的一致性。"
+      },
+      {
+        "role": "information",
+        "q": "我一般睡得比较晚，通常要到凌晨一点左右才会睡觉，你觉得这样算健康吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "今天的新闻提到某地发生了轻微地震，但没有人员伤亡。"
+      },
+      {
+        "role": "distractor",
+        "q": "在计算机网络中，TCP协议用于保证数据传输的可靠性。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 64 * 18 的结果，并尽量不用计算器。"
+      },
+      {
+        "role": "distractor",
+        "q": "很多学生会在考试周熬夜复习。"
+      },
+      {
+        "role": "distractor",
+        "q": "机器学习中的过拟合问题通常通过正则化来缓解。"
+      },
+      {
+        "role": "distractor",
+        "q": "请将这句话翻译成英文：人工智能正在快速发展。"
+      },
+      {
+        "role": "distractor",
+        "q": "函数在连续区间上一定具有介值性质。"
+      },
+      {
+        "role": "distractor",
+        "q": "咖啡因会影响人的中枢神经系统。"
+      },
+      {
+        "role": "evaluation",
+        "q": "用户一般几点睡觉？",
+        "expected": "凌晨一点左右"
+      },
+      {
+        "role": "distractor",
+        "q": "排序算法可以通过优化减少时间复杂度。"
+      },
+      {
+        "role": "distractor",
+        "q": "光速是自然界中的速度上限。"
+      },
+      {
+        "role": "distractor",
+        "q": "请解释什么是递归函数。"
+      },
+      {
+        "role": "distractor",
+        "q": "深度学习模型需要大量数据进行训练。"
+      },
+      {
+        "role": "distractor",
+        "q": "地球自转一圈大约需要24小时。"
+      },
+      {
+        "role": "evaluation",
+        "q": "再确认一次，用户的作息习惯是什么？",
+        "expected": "晚睡"
+      },
+      {
+        "role": "distractor",
+        "q": "概率论中的期望值表示随机变量的平均结果。"
+      },
+      {
+        "role": "distractor",
+        "q": "神经网络由多层结构组成，包括输入层和输出层。"
+      },
+      {
+        "role": "evaluation",
+        "q": "最后总结：用户通常几点睡觉？",
+        "expected": "凌晨一点左右"
+      }
+    ]
+  },
+  {
+    "id": "consistency_test_3",
+    "type": "consistency",
+    "turns": [
+      {
+        "role": "introduction",
+        "q": "接下来你扮演一名医生，我现在有点不舒服，想跟你聊一下我的情况。"
+      },
+      {
+        "role": "information",
+        "q": "医生，我最近总是感觉心口有点疼，有时候是隐隐作痛，有时候会有点闷，你觉得严重吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "最近天气变化挺大的，很多人都感冒了。"
+      },
+      {
+        "role": "distractor",
+        "q": "咖啡因可能会影响心率和睡眠质量。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 12378 + 11452 的结果。"
+      },
+      {
+        "role": "distractor",
+        "q": "在物理学中，牛顿第二定律描述力与加速度的关系。"
+      },
+      {
+        "role": "distractor",
+        "q": "很多人会在压力大的时候出现头痛。"
+      },
+      {
+        "role": "distractor",
+        "q": "请将这句话翻译成英文：我今天很累。"
+      },
+      {
+        "role": "distractor",
+        "q": "心脏由心房和心室组成，是人体重要器官。"
+      },
+      {
+        "role": "distractor",
+        "q": "机器学习模型在训练过程中可能出现梯度消失问题。"
+      },
+      {
+        "role": "evaluation",
+        "q": "患者刚才主要提到的症状是什么？",
+        "expected": "心口疼"
+      },
+      {
+        "role": "distractor",
+        "q": "胃部不适有时也会引起类似胸部的疼痛感。"
+      },
+      {
+        "role": "distractor",
+        "q": "请解释什么是血压。"
+      },
+      {
+        "role": "distractor",
+        "q": "运动有助于改善心肺功能。"
+      },
+      {
+        "role": "distractor",
+        "q": "深度学习可以用于医学影像分析。"
+      },
+      {
+        "role": "distractor",
+        "q": "请列举三种常见的心血管疾病。"
+      },
+      {
+        "role": "evaluation",
+        "q": "你记得患者哪里不舒服吗？",
+        "expected": "心口疼"
+      },
+      {
+        "role": "distractor",
+        "q": "焦虑有时也会表现为身体不适。"
+      },
+      {
+        "role": "distractor",
+        "q": "请解释什么是心电图。"
+      },
+      {
+        "role": "evaluation",
+        "q": "最后总结一下患者的主要症状。",
+        "expected": "心口疼"
+      }
+    ]
+  },
+  {
+    "id": "consistency_test_4",
+    "type": "consistency",
+    "turns": [
+      {
+        "role": "introduction",
+        "q": "接下来请记住用户的生活习惯"
+      },
+      {
+        "role": "information",
+        "q": "我平时挺喜欢喝咖啡的，尤其是早上不喝一杯会感觉没精神，你一般会喝什么？"
+      },
+      {
+        "role": "distractor",
+        "q": "最近天气变化挺快的，有时候早上还挺冷的。"
+      },
+      {
+        "role": "distractor",
+        "q": "咖啡因对中枢神经系统有一定刺激作用。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 36 × 27 的结果。"
+      },
+      {
+        "role": "distractor",
+        "q": "很多人会在下午选择喝茶来提神。"
+      },
+      {
+        "role": "distractor",
+        "q": "深度学习模型在训练时需要调整学习率。"
+      },
+      {
+        "role": "distractor",
+        "q": "请将这句话翻译成英文：我今天很累。"
+      },
+      {
+        "role": "distractor",
+        "q": "水的沸点在标准大气压下是100摄氏度。"
+      },
+      {
+        "role": "evaluation",
+        "q": "用户平时喜欢喝什么？",
+        "expected": "咖啡"
+      },
+      {
+        "role": "distractor",
+        "q": "茶和咖啡是世界上最常见的两种提神饮品。"
+      },
+      {
+        "role": "distractor",
+        "q": "请解释什么是咖啡因耐受性。"
+      },
+      {
+        "role": "distractor",
+        "q": "很多人早晨都有喝饮料的习惯。"
+      },
+      {
+        "role": "evaluation",
+        "q": "再确认一次，用户的饮品偏好是什么？",
+        "expected": "咖啡"
+      }
+    ]
+  },
+  {
+    "id": "consistency_test_5",
+    "type": "consistency",
+    "turns": [
+      {
+        "role": "introduction",
+        "q": "最近我们可以聊点生活习惯方面的内容。"
+      },
+      {
+        "role": "information",
+        "q": "我平时有个习惯，就是每天早上都会喝一杯咖啡，不然整个人会比较难清醒，你觉得这样正常吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "很多人会选择用运动来开启一天的状态。"
+      },
+      {
+        "role": "distractor",
+        "q": "咖啡豆的产地会影响风味，比如巴西和埃塞俄比亚的咖啡就不太一样。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 58 * 19 的结果。"
+      },
+      {
+        "role": "distractor",
+        "q": "神经网络中的激活函数可以引入非线性。"
+      },
+      {
+        "role": "distractor",
+        "q": "很多人早上会选择喝茶或者咖啡来提神。"
+      },
+      {
+        "role": "distractor",
+        "q": "请将这句话翻译成英文：今天是个好天气。"
+      },
+      {
+        "role": "distractor",
+        "q": "长期摄入咖啡因可能会导致耐受性上升。"
+      },
+      {
+        "role": "distractor",
+        "q": "深度学习模型通常需要大量计算资源。"
+      },
+      {
+        "role": "evaluation",
+        "q": "用户早上的习惯是什么？",
+        "expected": "喝咖啡"
+      },
+      {
+        "role": "distractor",
+        "q": "一些研究表明咖啡可能对注意力有帮助。"
+      },
+      {
+        "role": "distractor",
+        "q": "请解释什么是梯度下降算法。"
+      },
+      {
+        "role": "distractor",
+        "q": "地球自转一圈大约需要24小时。"
+      },
+      {
+        "role": "evaluation",
+        "q": "用户每天早上通常做什么？",
+        "expected": "喝咖啡"
+      },
+      {
+        "role": "distractor",
+        "q": "茶也是一种常见的提神饮品。"
+      },
+      {
+        "role": "distractor",
+        "q": "咖啡因的作用时间因人而异。"
+      },
+      {
+        "role": "evaluation",
+        "q": "再确认一次，用户早晨的饮品习惯是什么？",
+        "expected": "喝咖啡"
+      },
+      {
+        "role": "distractor",
+        "q": "不同文化中早餐习惯差异很大。"
+      },
+      {
+        "role": "distractor",
+        "q": "请列举三种常见的饮料。"
+      },
+      {
+        "role": "evaluation",
+        "q": "最终总结：用户早上有什么固定习惯？",
+        "expected": "喝咖啡"
+      }
+    ]
+  },
+  {
+    "id": "consistency_test_6",
+    "type": "consistency",
+    "turns": [
+      {
+        "role": "introduction",
+        "q": "你好，我们可以随便聊聊。"
+      },
+      {
+        "role": "information",
+        "q": "我最近开始学习吉他，不过进展比较慢，你觉得初学者应该怎么练比较好？"
+      },
+      {
+        "role": "distractor",
+        "q": "光的传播速度约为每秒三十万公里。"
+      },
+      {
+        "role": "distractor",
+        "q": "递归函数在编程中常用于处理树结构问题。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 245 * 17 的结果。"
+      },
+      {
+        "role": "distractor",
+        "q": "牛顿第一定律也叫惯性定律。"
+      },
+      {
+        "role": "distractor",
+        "q": "机器学习模型通常需要大量数据进行训练。"
+      },
+      {
+        "role": "distractor",
+        "q": "请将这句话翻译成英文：今天天气很好。"
+      },
+      {
+        "role": "distractor",
+        "q": "图的最短路径问题可以用 Dijkstra 算法解决。"
+      },
+      {
+        "role": "evaluation",
+        "q": "用户最近在做什么事情？",
+        "expected": "学习吉他"
+      },
+      {
+        "role": "distractor",
+        "q": "咖啡因可能影响人的睡眠质量。"
+      },
+      {
+        "role": "distractor",
+        "q": "排序算法中快速排序平均复杂度为 O(n log n)。"
+      },
+      {
+        "role": "distractor",
+        "q": "神经网络通过反向传播更新参数。"
+      },
+      {
+        "role": "distractor",
+        "q": "水的沸点在标准大气压下是100摄氏度。"
+      },
+      {
+        "role": "distractor",
+        "q": "请解释什么是哈希表。"
+      },
+      {
+        "role": "evaluation",
+        "q": "用户在学习什么？",
+        "expected": "吉他"
+      },
+      {
+        "role": "distractor",
+        "q": "张量在深度学习中用于表示多维数据。"
+      },
+      {
+        "role": "distractor",
+        "q": "贝叶斯公式用于计算条件概率。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 1024 ÷ 16 的结果。"
+      },
+      {
+        "role": "distractor",
+        "q": "地球自转一圈约为24小时。"
+      },
+      {
+        "role": "distractor",
+        "q": "线性回归是一种基础机器学习方法。"
+      },
+      {
+        "role": "evaluation",
+        "q": "用户当前的兴趣是什么？",
+        "expected": "吉他"
+      },
+      {
+        "role": "distractor",
+        "q": "深度学习中的激活函数包括ReLU和Sigmoid。"
+      },
+      {
+        "role": "distractor",
+        "q": "图像分类任务常用卷积神经网络。"
+      },
+      {
+        "role": "distractor",
+        "q": "请将句子翻译为英文：我喜欢音乐。"
+      },
+      {
+        "role": "distractor",
+        "q": "二分查找的时间复杂度是 O(log n)。"
+      },
+      {
+        "role": "distractor",
+        "q": "太阳系有八大行星。"
+      },
+      {
+        "role": "evaluation",
+        "q": "用户在这段对话中主要做什么？",
+        "expected": "学习吉他"
+      },
+      {
+        "role": "distractor",
+        "q": "强化学习通过奖励信号优化策略。"
+      },
+      {
+        "role": "distractor",
+        "q": "卷积操作可以提取局部特征。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 88 * 76。"
+      },
+      {
+        "role": "distractor",
+        "q": "热力学第二定律描述熵的增加。"
+      },
+      {
+        "role": "distractor",
+        "q": "自然语言处理用于分析文本数据。"
+      },
+      {
+        "role": "evaluation",
+        "q": "用户最开始提到的事情是什么？",
+        "expected": "学习吉他"
+      },
+      {
+        "role": "distractor",
+        "q": "GPU适合做并行计算。"
+      },
+      {
+        "role": "distractor",
+        "q": "随机梯度下降是优化算法之一。"
+      },
+      {
+        "role": "distractor",
+        "q": "请解释什么是过拟合。"
+      },
+      {
+        "role": "distractor",
+        "q": "哈密顿路径是图论中的概念。"
+      },
+      {
+        "role": "distractor",
+        "q": "Python是一种高级编程语言。"
+      },
+      {
+        "role": "evaluation",
+        "q": "总结用户当前状态。",
+        "expected": "在学习吉他"
+      },
+      {
+        "role": "distractor",
+        "q": "卷积神经网络在视觉任务中表现很好。"
+      },
+      {
+        "role": "distractor",
+        "q": "信息熵用于衡量不确定性。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 512 ÷ 8。"
+      },
+      {
+        "role": "distractor",
+        "q": "Transformer模型使用自注意力机制。"
+      },
+      {
+        "role": "evaluation",
+        "q": "最后确认：用户在做什么？",
+        "expected": "学习吉他"
+      }
+    ]
+  },
+  {
+    "id": "consistency_test_7",
+    "type": "consistency",
+    "turns": [
+      {
+        "role": "introduction",
+        "q": "我们来做一个抽象记忆测试，你只需要记住我提供的信息。"
+      },
+      {
+        "role": "information",
+        "q": "我的代号是K-17。"
+      },
+      {
+        "role": "information",
+        "q": "我偏好蓝色立方体，不喜欢红色球体。"
+      },
+      {
+        "role": "information",
+        "q": "我每天的活动时间是第3周期到第7周期。"
+      },
+      {
+        "role": "information",
+        "q": "我不接收任何包含数字9的指令。"
+      },
+      {
+        "role": "distractor",
+        "q": "斐波那契数列的前几项是1,1,2,3,5,8。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 128 × 32。"
+      },
+      {
+        "role": "distractor",
+        "q": "水在0摄氏度时结冰。"
+      },
+      {
+        "role": "distractor",
+        "q": "哈希函数用于快速查找。"
+      },
+      {
+        "role": "distractor",
+        "q": "太阳位于银河系的一个旋臂上。"
+      },
+      {
+        "role": "evaluation",
+        "q": "该对象的代号是什么？",
+        "expected": "K-17"
+      },
+      {
+        "role": "distractor",
+        "q": "请将hello翻译成中文。"
+      },
+      {
+        "role": "distractor",
+        "q": "二分查找需要有序数组。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 777 ÷ 3。"
+      },
+      {
+        "role": "distractor",
+        "q": "电流的单位是安培。"
+      },
+      {
+        "role": "distractor",
+        "q": "矩阵乘法不满足交换律。"
+      },
+      {
+        "role": "evaluation",
+        "q": "该对象偏好哪种形状和颜色？",
+        "expected": "蓝色立方体"
+      },
+      {
+        "role": "distractor",
+        "q": "神经网络通过训练调整权重。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 2048 ÷ 16。"
+      },
+      {
+        "role": "distractor",
+        "q": "声音在空气中的传播速度约为340m/s。"
+      },
+      {
+        "role": "distractor",
+        "q": "字符串可以用数组实现。"
+      },
+      {
+        "role": "distractor",
+        "q": "圆的面积公式是πr²。"
+      },
+      {
+        "role": "evaluation",
+        "q": "该对象不喜欢什么？",
+        "expected": "红色球体"
+      },
+      {
+        "role": "distractor",
+        "q": "操作系统负责资源管理。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 9999 - 1234。"
+      },
+      {
+        "role": "distractor",
+        "q": "HTTP是超文本传输协议。"
+      },
+      {
+        "role": "distractor",
+        "q": "地球绕太阳公转一周约365天。"
+      },
+      {
+        "role": "distractor",
+        "q": "布尔代数用于逻辑运算。"
+      },
+      {
+        "role": "evaluation",
+        "q": "该对象的活动时间范围是什么？",
+        "expected": "第3周期到第7周期"
+      },
+      {
+        "role": "distractor",
+        "q": "递归函数需要终止条件。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 64 * 64。"
+      },
+      {
+        "role": "distractor",
+        "q": "数据库可以用来存储结构化数据。"
+      },
+      {
+        "role": "distractor",
+        "q": "质数是只能被1和自身整除的数。"
+      },
+      {
+        "role": "distractor",
+        "q": "GPU适合并行计算。"
+      },
+      {
+        "role": "evaluation",
+        "q": "该对象拒绝什么类型的指令？",
+        "expected": "包含数字9的指令"
+      },
+      {
+        "role": "distractor",
+        "q": "向量可以表示方向和大小。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 512 * 8。"
+      },
+      {
+        "role": "distractor",
+        "q": "排序算法包括归并排序。"
+      },
+      {
+        "role": "distractor",
+        "q": "光是一种电磁波。"
+      },
+      {
+        "role": "distractor",
+        "q": "链表支持高效插入。"
+      },
+      {
+        "role": "evaluation",
+        "q": "再次确认：该对象的代号是什么？",
+        "expected": "K-17"
+      },
+      {
+        "role": "distractor",
+        "q": "深度学习模型通常需要GPU训练。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 10000 ÷ 25。"
+      },
+      {
+        "role": "distractor",
+        "q": "操作系统提供文件系统。"
+      },
+      {
+        "role": "distractor",
+        "q": "熵衡量系统的无序程度。"
+      },
+      {
+        "role": "evaluation",
+        "q": "最后总结该对象的一个核心偏好。",
+        "expected": "蓝色立方体"
+      }
+    ]
+  },
+  {
+    "id": "consistency_test_8",
+    "type": "consistency",
+    "turns": [
+      {
+        "role": "introduction",
+        "q": "我想聊聊我的猫。"
+      },
+      {
+        "role": "information",
+        "q": "我养了一只猫，它的名字叫团子。"
+      },
+      {
+        "role": "distractor",
+        "q": "今天早上楼下咖啡店排队的人特别多。"
+      },
+      {
+        "role": "distractor",
+        "q": "有人说天气冷的时候更容易犯困。"
+      },
+      {
+        "role": "distractor",
+        "q": "我刚刚看到一篇文章讲睡眠的重要性。"
+      },
+      {
+        "role": "distractor",
+        "q": "键盘按键的手感因品牌差异很大。"
+      },
+      {
+        "role": "distractor",
+        "q": "番茄酱应该放冰箱还是常温保存一直有争论。"
+      },
+      {
+        "role": "evaluation",
+        "q": "猫的名字是什么？",
+        "expected": "团子"
+      },
+      {
+        "role": "distractor",
+        "q": "有些人喜欢在晚上听音乐放松。"
+      },
+      {
+        "role": "distractor",
+        "q": "便利店的饭团种类越来越多。"
+      },
+      {
+        "role": "distractor",
+        "q": "水喝太多也会不舒服。"
+      },
+      {
+        "role": "distractor",
+        "q": "猫有时候会对陌生声音很敏感。"
+      },
+      {
+        "role": "distractor",
+        "q": "电影推荐算法越来越精准。"
+      },
+      {
+        "role": "evaluation",
+        "q": "那只猫叫什么？",
+        "expected": "团子"
+      },
+      {
+        "role": "distractor",
+        "q": "天气变冷之后很多人开始穿厚外套。"
+      },
+      {
+        "role": "distractor",
+        "q": "咖啡因可能影响睡眠质量。"
+      },
+      {
+        "role": "distractor",
+        "q": "有人喜欢早起，有人喜欢晚睡。"
+      },
+      {
+        "role": "distractor",
+        "q": "整理房间有助于提高效率。"
+      },
+      {
+        "role": "distractor",
+        "q": "植物需要阳光才能生长。"
+      },
+      {
+        "role": "evaluation",
+        "q": "请说出猫的名字。",
+        "expected": "团子"
+      },
+      {
+        "role": "distractor",
+        "q": "冰淇淋在夏天很受欢迎。"
+      },
+      {
+        "role": "distractor",
+        "q": "有些人喜欢养宠物，有些人不喜欢。"
+      },
+      {
+        "role": "distractor",
+        "q": "手机电池健康度会下降。"
+      },
+      {
+        "role": "distractor",
+        "q": "音乐可以影响情绪。"
+      },
+      {
+        "role": "distractor",
+        "q": "猫通常比较独立。"
+      },
+      {
+        "role": "evaluation",
+        "q": "再次确认：猫叫什么名字？",
+        "expected": "团子"
+      },
+      {
+        "role": "distractor",
+        "q": "很多人喜欢在周末休息。"
+      },
+      {
+        "role": "distractor",
+        "q": "咖啡店通常很安静。"
+      },
+      {
+        "role": "distractor",
+        "q": "下雨天适合待在室内。"
+      },
+      {
+        "role": "distractor",
+        "q": "书店里有很多人喜欢看杂志。"
+      },
+      {
+        "role": "distractor",
+        "q": "猫有时候会自己玩很久。"
+      },
+      {
+        "role": "evaluation",
+        "q": "猫的名字是什么？",
+        "expected": "团子"
+      },
+      {
+        "role": "distractor",
+        "q": "空气湿度高的时候会感觉闷热。"
+      },
+      {
+        "role": "distractor",
+        "q": "很多人喜欢喝热饮。"
+      },
+      {
+        "role": "distractor",
+        "q": "键盘声音影响打字体验。"
+      },
+      {
+        "role": "distractor",
+        "q": "冰箱需要定期清理。"
+      },
+      {
+        "role": "distractor",
+        "q": "猫可能会在夜里活动更多。"
+      },
+      {
+        "role": "evaluation",
+        "q": "最后确认猫的名字。",
+        "expected": "团子"
+      },
+      {
+        "role": "distractor",
+        "q": "很多人喜欢看短视频放松。"
+      },
+      {
+        "role": "distractor",
+        "q": "水果放久了会变软。"
+      },
+      {
+        "role": "distractor",
+        "q": "天气变化影响心情。"
+      },
+      {
+        "role": "distractor",
+        "q": "猫喜欢温暖的地方。"
+      },
+      {
+        "role": "evaluation",
+        "q": "总结：猫叫什么名字？",
+        "expected": "团子"
+      }
+    ]
+  }
+]

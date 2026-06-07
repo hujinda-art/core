@@ -1,0 +1,5 @@
+import os
+
+MAX_CONTEXT_WINDOW = 8000
+SECOND_WATER_LEVEL = float(os.getenv("SHORT_MEM_SECOND_WATER_LEVEL", "0.5"))
+LONG_MEM_N = 5

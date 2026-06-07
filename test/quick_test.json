@@ -1,0 +1,28 @@
+[
+  {
+    "id": "quick_01",
+    "type": "consistency",
+    "turns": [
+      { "role": "introduction", "q": "接下来我会告诉你一些信息，请记住。" },
+      { "role": "information", "q": "我的名字是张三。" },
+      { "role": "distractor", "q": "今天天气怎么样？" },
+      { "role": "evaluation", "q": "我叫什么名字？", "expected": "张三" },
+      { "role": "distractor", "q": "你最喜欢什么颜色？" },
+      { "role": "evaluation", "q": "还记得我的名字吗？", "expected": "张三" }
+    ]
+  },
+  {
+    "id": "quick_02",
+    "type": "forgetting",
+    "turns": [
+      { "role": "introduction", "q": "记住以下信息。" },
+      { "role": "information", "q": "暗号是'北极星'。" },
+      { "role": "distractor", "q": "你觉得人工智能未来会如何发展？" },
+      { "role": "distractor", "q": "今天晚餐吃什么好？" },
+      { "role": "distractor", "q": "你听说过量子计算吗？" },
+      { "role": "distractor", "q": "推荐一本好看的小说。" },
+      { "role": "distractor", "q": "怎样学好编程？" },
+      { "role": "evaluation", "q": "暗号是什么？", "expected": "北极星" }
+    ]
+  }
+]
