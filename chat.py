@@ -23,19 +23,23 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from src.agents.Agent import AsyncAgent
-from src.memory import NoMem, ShortMem, LongMem, CombinedMem
-
 _STRATEGY_MAP = {
-    "NoMem": NoMem,
-    "ShortMem": ShortMem,
-    "LongMem": LongMem,
-    "CombinedMem": CombinedMem,
+    "NoMem": "NoMem",
+    "ShortMem": "ShortMem",
+    "LongMem": "LongMem",
+    "CombinedMem": "CombinedMem",
 }
 
 
 def main() -> None:
     import argparse
+    import logging
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s | %(levelname)s | %(message)s",
+        stream=sys.stderr,
+    )
 
     parser = argparse.ArgumentParser(description="Interactive chat with memory-augmented agent")
     parser.add_argument(
@@ -54,21 +58,31 @@ def main() -> None:
     if args.backend:
         os.environ["LONG_MEM_BACKEND"] = args.backend
 
-    mem_class = _STRATEGY_MAP[args.strategy]
+    strategy = args.strategy
+    backend = os.getenv("LONG_MEM_BACKEND", "chromadb")
+    model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+    embed = os.getenv("HNSW_EMBEDDING", "bge-m3")
+
+    print(f"=== Memory Chat ===", flush=True)
+    print(f"  Strategy: {strategy} | Backend: {backend} | Model: {model}", flush=True)
+    if backend == "hnsw":
+        print(f"  Embedding: {embed}", flush=True)
+    print(flush=True)
+
+    print("Initializing memory module...", end=" ", flush=True)
+    from src.memory import NoMem, ShortMem, LongMem, CombinedMem
+
+    mem_class = {"NoMem": NoMem, "ShortMem": ShortMem, "LongMem": LongMem, "CombinedMem": CombinedMem}[strategy]
     try:
         mem = mem_class(session_id="interactive_chat")
     except TypeError:
         mem = mem_class()
+    print("Done.", flush=True)
+
+    from src.agents.Agent import AsyncAgent
 
     agent = AsyncAgent(mem_module=mem)
-
-    strategy = args.strategy
-    backend = os.getenv("LONG_MEM_BACKEND", "chromadb")
-    model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-    print(f"=== Memory Chat ===")
-    print(f"  Strategy: {strategy} | Backend: {backend} | Model: {model}")
-    print(f"  Type 'quit' to exit, 'reset' to clear memory, 'history' to view stored memory.")
-    print()
+    print("Ready. Type 'quit' to exit, 'reset' to clear memory, 'history' to view stored memory.\n", flush=True)
 
     async def chat_loop() -> None:
         while True:
@@ -100,8 +114,9 @@ def main() -> None:
                     print()
                 continue
 
+            print("Agent: ", end="", flush=True)
             reply = await agent.chat(q)
-            print(f"\nAgent: {reply}\n")
+            print(f"{reply}\n")
 
     asyncio.run(chat_loop())
 
