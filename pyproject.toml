@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "memorystore"
+version = "0.1.0"
+description = "Memory-augmented AI agent with pluggable vector backends"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [{name = "hjd"}]
+keywords = ["memory", "ai-agent", "vector-store", "chromadb", "hnsw"]
+
+dependencies = [
+    "openai>=1.0.0",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "tiktoken>=0.12.0",
+]
+
+[project.optional-dependencies]
+chromadb = ["chromadb>=0.4.0"]
+hnsw = [
+    "hnswlib>=0.8.0",
+    "numpy>=1.24.0",
+]
+hnsw-bge-m3 = [
+    "memorystore[hnsw]",
+    "FlagEmbedding",
+]
+hnsw-bge-large-zh = [
+    "memorystore[hnsw]",
+    "FlagEmbedding",
+]
+hnsw-sentence-transformers = [
+    "memorystore[hnsw]",
+    "sentence-transformers",
+]
+eval = [
+    "chromadb>=0.4.0",
+    "hnswlib>=0.8.0",
+    "numpy>=1.24.0",
+    "FlagEmbedding",
+]
+all = [
+    "memorystore[eval]",
+    "sentence-transformers",
+]
+dev = [
+    "memorystore[all]",
+    "jupyter",
+    "matplotlib",
+]
+
+[project.scripts]
+memorystore-chat = "src.chat:main"
+
+[tool.setuptools.packages.find]
+include = ["src", "hnsw_memorystore"]
+
+[tool.setuptools.package-data]
+src = ["prompts/*.md"]
+
+[tool.setuptools.exclude-package-data]
+"*" = ["test/*", "results/*", "experiment_results/*"]

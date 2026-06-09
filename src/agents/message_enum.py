@@ -1,9 +1,9 @@
 import os
 from enum import Enum
 
-_FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-_CORE_DIR = os.path.join(_FILE_DIR, "..", "..")
-_PROMPTS_DIR = os.getenv("PROMPTS_DIR", os.path.join(_CORE_DIR, "prompts"))
+_AGENTS_DIR = os.path.dirname(os.path.abspath(__file__))
+_SRC_DIR = os.path.dirname(_AGENTS_DIR)
+_PROMPTS_DIR = os.getenv("PROMPTS_DIR", os.path.join(_SRC_DIR, "prompts"))
 
 
 def _load_agent_prompts() -> dict[str, str]:

@@ -25,8 +25,8 @@ logger = logging.getLogger("AILongTermMem")
 _CONCURRENCY = int(os.getenv("EVAL_CONCURRENCY", "5"))
 _SEMAPHORE = asyncio.Semaphore(_CONCURRENCY)
 
-_CORE_DIR = os.path.dirname(os.path.abspath(__file__))
-_PROMPTS_DIR = os.getenv("PROMPTS_DIR", os.path.join(os.path.dirname(_CORE_DIR), "prompts"))
+_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+_PROMPTS_DIR = os.getenv("PROMPTS_DIR", os.path.join(_THIS_DIR, "prompts"))
 
 
 @dataclass
