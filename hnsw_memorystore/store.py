@@ -70,10 +70,44 @@ class HnswMemoryStore:
         # --- HNSW index ---
         index_path = os.path.join(store_path, "hnsw_index.bin")
         self.index: hnswlib.Index = hnswlib.Index(space=space, dim=dim)
+        self._default_ef = max(80, ef_construction)
+        self._M = M
+        self._ef_construction = ef_construction
+        need_rebuild = False
         if os.path.exists(index_path):
             self.index.load_index(index_path, max_elements=max_elements)
-            self.index.set_ef(max(80, ef_construction))
-            logger.info("加载已有索引: %s (max_elements=%d)", index_path, max_elements)
+            current_count = self.index.get_current_count()
+            # 初始化 SQLite 以检查数据一致性
+            db_path_check = os.path.join(store_path, "metadata.db")
+            if os.path.exists(db_path_check):
+                try:
+                    db_check = sqlite3.connect(db_path_check)
+                    sqlite_count = db_check.execute("SELECT COUNT(*) FROM memory_meta").fetchone()[0]
+                    db_check.close()
+                except Exception:
+                    sqlite_count = 0
+            else:
+                sqlite_count = 0
+            if current_count == 0 and sqlite_count > 0:
+                logger.warning("索引为空但 SQLite 有 %d 条记录，将重建索引", sqlite_count)
+                need_rebuild = True
+            elif current_count < sqlite_count * 0.5:
+                logger.warning("索引 %d 条 << SQLite %d 条，可能不同步，将重建索引", current_count, sqlite_count)
+                need_rebuild = True
+            if need_rebuild:
+                self.index = hnswlib.Index(space=space, dim=dim)
+                self.index.init_index(
+                    max_elements=max_elements,
+                    M=M,
+                    ef_construction=ef_construction,
+                    random_seed=random_seed,
+                    allow_replace_deleted=False,
+                )
+                self.index.set_ef(self._default_ef)
+            else:
+                self._default_ef = max(80, min(ef_construction, current_count)) if current_count > 0 else 80
+                self.index.set_ef(self._default_ef)
+                logger.info("加载已有索引: %s (max_elements=%d, current=%d, ef=%d)", index_path, max_elements, current_count, self._default_ef)
         else:
             self.index.init_index(
                 max_elements=max_elements,
@@ -82,8 +116,23 @@ class HnswMemoryStore:
                 random_seed=random_seed,
                 allow_replace_deleted=False,
             )
-            self.index.set_ef(max(80, ef_construction))
-            logger.info("初始化新索引: dim=%d, space=%s, M=%d, ef_construction=%d", dim, space, M, ef_construction)
+            self.index.set_ef(self._default_ef)
+            # 检查是否 SQLite 有数据但索引文件丢失（未正常 close）
+            db_path_check = os.path.join(store_path, "metadata.db")
+            if os.path.exists(db_path_check):
+                try:
+                    db_check = sqlite3.connect(db_path_check)
+                    sqlite_count = db_check.execute("SELECT COUNT(*) FROM memory_meta").fetchone()[0]
+                    db_check.close()
+                except Exception:
+                    sqlite_count = 0
+            else:
+                sqlite_count = 0
+            if sqlite_count > 0:
+                logger.warning("索引文件不存在但 SQLite 有 %d 条记录，将重建索引", sqlite_count)
+                need_rebuild = True
+            else:
+                logger.info("初始化新索引: dim=%d, space=%s, M=%d, ef_construction=%d", dim, space, M, ef_construction)
 
         # --- SQLite ---
         db_path = os.path.join(store_path, "metadata.db")
@@ -105,6 +154,10 @@ class HnswMemoryStore:
         self._db.commit()
         self._next_id: int = self._load_next_id()
         logger.info("SQLite 元数据库就绪: %s | 当前最大 id=%d", db_path, self._next_id - 1)
+
+        # 如果索引与数据不同步，从 SQLite 重建索引
+        if need_rebuild:
+            self._rebuild_index_from_sqlite()
 
     # =========================================================
     # 写入
@@ -155,6 +208,10 @@ class HnswMemoryStore:
             self._next_id += n
 
             self.index.add_items(vectors, ids, num_threads=4)
+
+            current_count = self.index.get_current_count()
+            self._default_ef = max(80, min(self._default_ef, current_count))
+            self.index.set_ef(self._default_ef)
 
             now = time.time()
             rows = []
@@ -217,10 +274,12 @@ class HnswMemoryStore:
             return []
 
         with self._lock:
-            if ef is not None:
-                self.index.set_ef(ef)
-            else:
-                self.index.set_ef(max(80, k * 4))
+            actual_ef = ef if ef is not None else max(80, k * 4)
+            actual_ef = max(actual_ef, k + 1)
+            current_count = self.index.get_current_count()
+            if current_count > 0:
+                actual_ef = min(actual_ef, current_count)
+            self.index.set_ef(actual_ef)
 
             labels, distances = self.index.knn_query(q_vec, k=k)
 
@@ -274,6 +333,9 @@ class HnswMemoryStore:
             self.index.mark_deleted(mem_id)
             self._db.execute("DELETE FROM memory_meta WHERE id=?", (mem_id,))
             self._db.commit()
+            current_count = self.index.get_current_count()
+            self._default_ef = max(80, min(self._default_ef, current_count))
+            self.index.set_ef(self._default_ef)
         logger.info("删除记忆 id=%d", mem_id)
         return True
 
@@ -285,6 +347,9 @@ class HnswMemoryStore:
                 self.index.mark_deleted(mid)
             self._db.execute("DELETE FROM memory_meta WHERE session_id=?", (session_id,))
             self._db.commit()
+            current_count = self.index.get_current_count()
+            self._default_ef = max(80, min(self._default_ef, current_count))
+            self.index.set_ef(self._default_ef)
         logger.info("删除 session='%s' 的 %d 条记忆", session_id, len(ids))
         return len(ids)
 
@@ -307,6 +372,32 @@ class HnswMemoryStore:
     # =========================================================
     # 内部方法
     # =========================================================
+
+    def _rebuild_index_from_sqlite(self) -> None:
+        """从 SQLite 元数据重建 HNSW 索引（当索引文件损坏或不同步时）。"""
+        rows = self._db.execute(
+            "SELECT id, text FROM memory_meta ORDER BY id"
+        ).fetchall()
+        if not rows:
+            logger.info("无需重建：SQLite 无记录")
+            return
+
+        logger.info("开始从 SQLite 重建索引，共 %d 条记录...", len(rows))
+        batch_size = 64
+        for batch_start in range(0, len(rows), batch_size):
+            batch = rows[batch_start:batch_start + batch_size]
+            ids = np.array([r[0] for r in batch], dtype=np.int64)
+            texts = [r[1] for r in batch]
+            vectors = self._embed.embed(texts)
+            self.index.add_items(vectors, ids, num_threads=4)
+            if (batch_start + batch_size) % 256 == 0 or batch_start + batch_size >= len(rows):
+                logger.info("  重建进度: %d/%d", min(batch_start + batch_size, len(rows)), len(rows))
+
+        current_count = self.index.get_current_count()
+        self._default_ef = max(80, min(self._default_ef, current_count)) if current_count > 0 else 80
+        self.index.set_ef(self._default_ef)
+        self.save()
+        logger.info("索引重建完成: %d 条记录, ef=%d", current_count, self._default_ef)
 
     def _get_meta(self, mem_id: int) -> dict[str, Any] | None:
         cur = self._db.execute(
