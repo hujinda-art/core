@@ -96,12 +96,14 @@ async def run_tests(
             test_type_key = test_type.lower() if test_type else "consistency"
             if test_type_key == "forgetting":
                 batch_results = await evaluator.batch_eval_forgetting(eval_items)
+            elif test_type_key == "programming":
+                batch_results = await evaluator.batch_eval_programming(eval_items)
             else:
                 batch_results = await evaluator.batch_eval_consistency(eval_items)
 
             for idx, (value, method) in enumerate(batch_results):
                 eidx = turn_map[idx]
-                if test_type_key == "forgetting":
+                if test_type_key in ("forgetting", "programming"):
                     evaluations[eidx]["passed"] = value >= 0.5
                     evaluations[eidx]["score"] = value
                     evaluations[eidx]["eval_method"] = method

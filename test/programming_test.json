@@ -1,0 +1,30 @@
+[
+  {
+    "id": "prog_all",
+    "type": "programming",
+    "turns": [
+      { "role": "introduction", "q": "接下来我会给你几段有问题的代码，请帮我逐一修正并记住，后续我会基于修正后的代码提出扩展要求。重要：所有代码中的函数名、类名和变量名不要修改，只修正逻辑错误。" },
+
+      { "role": "information", "q": "这个快速排序函数有bug，排序结果不稳定：\n```python\ndef qsrt_asc(arr):\n    if len(arr) <= 1:\n        return arr\n    pvt_val = arr[len(arr) // 2]\n    lft_prt = [x for x in arr if x <= pvt_val]\n    mdl_val = [x for x in arr if x == pvt_val]\n    rgt_prt = [x for x in arr if x < pvt_val]\n    return qsrt_asc(lft_prt) + mdl_val + qsrt_asc(rgt_prt)\n```\nlft_prt用了<=而rgt_prt用了<，导致重复元素处理不对。请修正这个bug。" },
+      { "role": "evaluation", "q": "现在请给这个快速排序函数添加一个参数 reverse，当 reverse=True 时按降序排列，当 reverse=False（默认）时按升序排列。注意保持函数名 qsrt_asc 和变量名 pvt_val、lft_prt、mdl_val、rgt_prt 不变。", "expected": "def qsrt_asc(arr, reverse=False): 升序时lft_prt取<x的元素、rgt_prt取>x的元素，降序时反转比较方向，保持pvt_val/mdl_val变量名不变" },
+
+      { "role": "information", "q": "接下来看这个密码验证函数，有bug：\n```python\ndef vldt_pwd(password):\n    mn_len = 8\n    rqd_dgt = True\n    spcl_chr = False\n    if len(password) < mn_len:\n        return False\n    if rqd_dgt and not any(c.isalpha() for c in password):\n        return False\n    return True\n```\nrqd_dgt 要求密码包含数字，但代码用了 isalpha（检查字母而非数字）。请修正。" },
+      { "role": "evaluation", "q": "请给 vldt_pwd 函数添加一个参数 req_spcl，当 req_spcl=True 时要求密码至少包含一个特殊字符（如!@#$%等）。保持函数名 vldt_pwd 和变量名 mn_len、rqd_dgt、spcl_chr 不变。", "expected": "def vldt_pwd(password, req_spcl=False): 数字检查用 isdigit() 而非 isalpha()，新增 req_spcl 参数控制特殊字符检查，保持 mn_len/rqd_dgt/spcl_chr 变量名不变" },
+
+      { "role": "information", "q": "这个文件读取函数有资源泄露的bug：\n```python\ndef rd_fl_ctnt(fl_pth, ncd_tp='utf-8'):\n    f = open(fl_pth, 'r', encoding=ncd_tp)\n    ln_lst = f.readlines()\n    f.close()\n    return ln_lst\n```\n没有用with语句，如果readlines抛出异常则文件不会关闭。请用with语句修正。" },
+      { "role": "evaluation", "q": "请给 rd_fl_ctnt 函数添加一个参数 ln_num，当 ln_num 为整数时只返回该行号的内容（从1开始），不传或传None时返回所有行。保持函数名 rd_fl_ctnt 和变量名 fl_pth、ncd_tp、ln_lst 不变。", "expected": "def rd_fl_ctnt(fl_pth, ncd_tp='utf-8', ln_num=None): 使用with语句保证文件关闭，ln_num为整数时返回ln_lst[ln_num-1]，None时返回ln_lst，保持变量名不变" },
+
+      { "role": "information", "q": "接下来看这个计数器类，递减时可以低于零，递增时可以超过上限：\n```python\nclass CntUp:\n    def __init__(self, mx_lmt=100, stp_sz=1):\n        self.crnt_val = 0\n        self.mx_lmt = mx_lmt\n        self.stp_sz = stp_sz\n    \n    def increment(self):\n        self.crnt_val += self.stp_sz\n        return self.crnt_val\n    \n    def decrement(self):\n        self.crnt_val -= self.stp_sz\n        return self.crnt_val\n```\nincrement可以超过mx_lmt，decrement可以低于0。请修正这两个bug。" },
+      { "role": "evaluation", "q": "请给 CntUp 类添加一个 reset 方法将 crnt_val 重置为0，以及一个 get_value 方法返回当前值但不修改它。保持类名 CntUp 和变量名 crnt_val、mx_lmt、stp_sz 不变。", "expected": "class CntUp: 添加 reset() 设置crnt_val=0 和 get_value() 返回crnt_val，increment不超过mx_lmt，decrement不低于0，保持 crnt_val/mx_lmt/stp_sz 变量名不变" },
+
+      { "role": "information", "q": "最后看这个字典合并函数，有bug：\n```python\ndef mrg_dct(pr_dct, scnd_src):\n    rslt = pr_dct.copy()\n    for k, v in scnd_src.items():\n        if k in rslt and isinstance(rslt[k], dict) and isinstance(v, dict):\n            rslt[k] = v\n        else:\n            rslt[k] = v\n    return rslt\n```\n当两个字典有相同的嵌套key时，应该递归合并而不是直接覆盖（rslt[k] = v 是覆盖而非递归合并）。请修正。" },
+      { "role": "evaluation", "q": "请给 mrg_dct 函数添加一个参数 dpc_flg，当 dpc_flg=True 时执行深度合并（递归合并嵌套字典），当 dpc_flg=False（默认）时执行浅合并（直接覆盖）。保持函数名 mrg_dct 和变量名 pr_dct、scnd_src、rslt 不变。", "expected": "def mrg_dct(pr_dct, scnd_src, dpc_flg=False): dpc_flg=True时递归合并嵌套字典（调用mrg_dct自身），False时直接覆盖，保持 pr_dct/scnd_src/rslt 变量名不变" },
+
+      { "role": "evaluation", "q": "我之前问你的存在错误的快速排序函数，最终的修正并扩展后的完整代码是什么？请输出最终代码，注意保持函数名qsrt_asc和所有变量名不变。", "expected": "def qsrt_asc(arr, reverse=False) 完整代码，包含 pvt_val/lft_prt/mdl_val/rgt_prt 变量名，升序时lft_prt取<x的元素，降序时lft_prt取>x的元素" },
+      { "role": "evaluation", "q": "我之前让你修正的密码验证函数，最终的完整版本是什么？请输出最终代码，注意保持函数名vldt_pwd和所有变量名不变。", "expected": "def vldt_pwd(password, req_spcl=False) 完整代码，数字检查用isdigit()而非isalpha()，包含req_spcl参数的特殊字符检查，保持 mn_len/rqd_dgt/spcl_chr 变量名不变" },
+      { "role": "evaluation", "q": "我之前让你修正的文件读取函数，最终的完整版本是什么？请输出最终代码，注意保持函数名rd_fl_ctnt和所有变量名不变。", "expected": "def rd_fl_ctnt(fl_pth, ncd_tp='utf-8', ln_num=None) 完整代码，使用with语句，ln_num为整数时返回指定行，保持 fl_pth/ncd_tp/ln_lst 变量名不变" },
+      { "role": "evaluation", "q": "我之前让你修正的计数器类，最终的完整版本是什么？请输出最终代码，注意保持类名CntUp和所有变量名不变。", "expected": "class CntUp 完整代码，包含 reset() 和 get_value() 方法，increment不超过mx_lmt，decrement不低于0，保持 crnt_val/mx_lmt/stp_sz 变量名不变" },
+      { "role": "evaluation", "q": "我之前让你修正的字典合并函数，最终的完整版本是什么？请输出最终代码，注意保持函数名mrg_dct和所有变量名不变。", "expected": "def mrg_dct(pr_dct, scnd_src, dpc_flg=False) 完整代码，dpc_flg=True时递归合并嵌套字典，False时浅合并覆盖，保持 pr_dct/scnd_src/rslt 变量名不变" }
+    ]
+  }
+]

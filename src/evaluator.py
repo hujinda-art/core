@@ -3,6 +3,8 @@
 Uses a separate OpenAI-compatible client (configurable via EVAL_OPENAI_* env vars)
 to judge whether model answers match expected answers in meaning, not just in
 exact string matching.
+
+Prompts are loaded from markdown files in the prompts/ directory.
 """
 
 import asyncio
@@ -22,6 +24,9 @@ logger = logging.getLogger("AILongTermMem")
 
 _CONCURRENCY = int(os.getenv("EVAL_CONCURRENCY", "5"))
 _SEMAPHORE = asyncio.Semaphore(_CONCURRENCY)
+
+_CORE_DIR = os.path.dirname(os.path.abspath(__file__))
+_PROMPTS_DIR = os.getenv("PROMPTS_DIR", os.path.join(os.path.dirname(_CORE_DIR), "prompts"))
 
 
 @dataclass
@@ -43,73 +48,49 @@ class EvalConfig:
 
 
 # =========================================================
-# Prompt templates (Chinese, matching the project language)
+# Prompt loading from markdown files
 # =========================================================
 
-_CONSISTENCY_PROMPT_SINGLE = """\
-你是一个严格的语义评估员。请判断模型的回答是否与期望答案在语义上等价。
+def _load_prompts_from_md(filename: str) -> dict[str, str]:
+    """Load prompt templates from a markdown file.
 
-规则：
-- 重点关注核心意思是否一致，而非字面完全相同
-- 允许不同的表达方式、同义替换、精简/详述，只要核心含义一致即算通过
-- 允许模型回答比期望答案更详细，只要包含了期望答案的要点即可
-- 如果模型回答缺少关键信息、给出矛盾的答案、或答非所问，则不通过
-- 不要因为语气、标点、口语化表达等差异而判定不通过
+    Expects ## section_name headers followed by the prompt text.
+    Returns a dict mapping section names to stripped prompt text.
+    """
+    path = os.path.join(_PROMPTS_DIR, filename)
+    if not os.path.exists(path):
+        logger.warning("Prompt file not found: %s", path)
+        return {}
 
-问题：{question}
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
 
-期望答案：{expected}
+    prompts = {}
+    current_name = None
+    current_lines: list[str] = []
 
-模型回答：{reply}
+    for line in content.split("\n"):
+        if line.startswith("## "):
+            if current_name is not None:
+                prompts[current_name] = "\n".join(current_lines).strip()
+            current_name = line[3:].strip()
+            current_lines = []
+        elif current_name is not None:
+            current_lines.append(line)
 
-请只输出 1（通过）或 0（不通过），不要输出任何解释。"""
+    if current_name is not None:
+        prompts[current_name] = "\n".join(current_lines).strip()
 
-_FORGETTING_PROMPT_SINGLE = """\
-你是一个记忆召回评估员。请检查模型回答中包含了多少个期望的知识点。
+    return prompts
 
-规则：
-- 每个知识点独立计分
-- 只要模型回答在语义上包含了这个知识点（允许换用不同说法），就算回忆到了
-- 允许更详细或更简略的表达，只要核心含义对就计为回忆到
-- 不要因为顺序不同而扣分
 
-问题：{question}
+_BASIC_PROMPTS = _load_prompts_from_md(os.getenv("EVAL_BASIC_PROMPTS", "evaluator_basic.md"))
+_PROGRAMMING_PROMPTS = _load_prompts_from_md(os.getenv("EVAL_PROGRAMMING_PROMPTS", "evaluator_programming.md"))
 
-期望知识点：{expected}
 
-模型回答：{reply}
-
-请输出 回忆到的知识点数 / 总知识点数，格式为 N/M（例如 2/3）。只输出这个分数，不要任何解释。"""
-
-_CONSISTENCY_PROMPT_BATCH = """\
-你是一个严格的语义评估员。请逐一判断每条模型回答是否与期望答案在语义上等价。
-
-规则：
-- 重点关注核心意思是否一致，而非字面完全相同
-- 允许不同的表达方式、同义替换、精简/详述，只要核心含义一致即算通过
-- 允许模型回答比期望答案更详细，只要包含了期望答案的要点即可
-- 如果模型回答缺少关键信息、给出矛盾的答案、或答非所问，则不通过
-- 不要因为语气、标点、口语化表达等差异而判定不通过
-
-{items}
-
-请严格按顺序输出一个 JSON 数组，每个元素为 1（通过）或 0（不通过）。
-只输出数组，例如 [1, 0, 1]，不要任何解释。"""
-
-_FORGETTING_PROMPT_BATCH = """\
-你是一个记忆召回评估员。请逐一检查每条模型回答中包含了多少个期望的知识点。
-
-规则：
-- 每个知识点独立计分
-- 只要模型回答在语义上包含了这个知识点（允许换用不同说法），就算回忆到了
-- 允许更详细或更简略的表达，只要核心含义对就计为回忆到
-- 不要因为顺序不同而扣分
-
-{items}
-
-请严格按顺序输出一个 JSON 数组，每个元素为 "N/M" 格式的字符串（例如 ["2/3", "1/1"]）。
-只输出数组，不要任何解释。"""
-
+# =========================================================
+# Item formatters
+# =========================================================
 
 def _format_consistency_items(entries: list[dict[str, str]]) -> str:
     lines = []
@@ -128,6 +109,17 @@ def _format_forgetting_items(entries: list[dict[str, str]]) -> str:
         lines.append(f"Test {i}:")
         lines.append(f"问题：{e['question']}")
         lines.append(f"期望知识点：{e['expected']}")
+        lines.append(f"模型回答：{e['reply']}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def _format_programming_items(entries: list[dict[str, str]]) -> str:
+    lines = []
+    for i, e in enumerate(entries, 1):
+        lines.append(f"Test {i}:")
+        lines.append(f"问题：{e['question']}")
+        lines.append(f"期望答案要点：{e['expected']}")
         lines.append(f"模型回答：{e['reply']}")
         lines.append("")
     return "\n".join(lines)
@@ -168,9 +160,10 @@ class AsyncEvaluator:
         self, question: str, reply: str, expected: str
     ) -> tuple[bool, str]:
         """Evaluate a single consistency item. Returns (passed, eval_method)."""
-        prompt = _CONSISTENCY_PROMPT_SINGLE.format(
-            question=question, expected=expected, reply=reply
-        )
+        template = _BASIC_PROMPTS.get("consistency_single", "")
+        if not template:
+            return expected in reply, "substring_fallback"
+        prompt = template.format(question=question, expected=expected, reply=reply)
         result = await self._call(prompt)
         if result:
             if "1" in result and "0" not in result.replace("10", ""):
@@ -190,9 +183,10 @@ class AsyncEvaluator:
         self, question: str, reply: str, expected: str
     ) -> tuple[float, str]:
         """Evaluate a single forgetting item. Returns (score, eval_method)."""
-        prompt = _FORGETTING_PROMPT_SINGLE.format(
-            question=question, expected=expected, reply=reply
-        )
+        template = _BASIC_PROMPTS.get("forgetting_single", "")
+        if not template:
+            return (1.0 if expected in reply else 0.0), "substring_fallback"
+        prompt = template.format(question=question, expected=expected, reply=reply)
         result = await self._call(prompt)
         if result:
             m = re.search(r"(\d+)\s*/\s*(\d+)", result)
@@ -200,6 +194,24 @@ class AsyncEvaluator:
                 n, d = int(m.group(1)), int(m.group(2))
                 if d > 0:
                     return n / d, "llm_semantic"
+        return (1.0 if expected in reply else 0.0), "substring_fallback"
+
+    async def eval_programming(
+        self, question: str, reply: str, expected: str
+    ) -> tuple[float, str]:
+        """Evaluate a single programming item. Returns (score, eval_method).
+        Score is 0.0-1.0 reflecting code correctness + naming consistency."""
+        template = _PROGRAMMING_PROMPTS.get("programming_single", "")
+        if not template:
+            return (1.0 if expected in reply else 0.0), "substring_fallback"
+        prompt = template.format(question=question, expected=expected, reply=reply)
+        result = await self._call(prompt)
+        if result:
+            m = re.search(r"(\d+\.?\d*)", result)
+            if m:
+                score = float(m.group(1))
+                score = max(0.0, min(1.0, score))
+                return score, "llm_programming"
         return (1.0 if expected in reply else 0.0), "substring_fallback"
 
     # =========================================================
@@ -214,9 +226,15 @@ class AsyncEvaluator:
         if not items:
             return []
 
-        prompt = _CONSISTENCY_PROMPT_BATCH.format(
-            items=_format_consistency_items(items)
-        )
+        template = _BASIC_PROMPTS.get("consistency_batch", "")
+        if not template:
+            coros = [
+                self.eval_consistency(i["question"], i["reply"], i["expected"])
+                for i in items
+            ]
+            return list(await asyncio.gather(*coros))
+
+        prompt = template.format(items=_format_consistency_items(items))
         result = await self._call(prompt)
 
         parsed = self._parse_json_array(result, len(items))
@@ -242,9 +260,15 @@ class AsyncEvaluator:
         if not items:
             return []
 
-        prompt = _FORGETTING_PROMPT_BATCH.format(
-            items=_format_forgetting_items(items)
-        )
+        template = _BASIC_PROMPTS.get("forgetting_batch", "")
+        if not template:
+            coros = [
+                self.eval_forgetting(i["question"], i["reply"], i["expected"])
+                for i in items
+            ]
+            return list(await asyncio.gather(*coros))
+
+        prompt = template.format(items=_format_forgetting_items(items))
         result = await self._call(prompt)
 
         parsed = self._parse_json_array(result, len(items))
@@ -267,6 +291,50 @@ class AsyncEvaluator:
         logger.warning("批量遗忘评估解析失败，回退到逐条评估")
         coros = [
             self.eval_forgetting(i["question"], i["reply"], i["expected"])
+            for i in items
+        ]
+        return list(await asyncio.gather(*coros))
+
+    async def batch_eval_programming(
+        self, items: list[dict[str, str]]
+    ) -> list[tuple[float, str]]:
+        """Batch programming evaluation. Each item: {question, reply, expected}.
+        Returns list of (score, eval_method). Score is 0.0-1.0."""
+        if not items:
+            return []
+
+        template = _PROGRAMMING_PROMPTS.get("programming_batch", "")
+        if not template:
+            coros = [
+                self.eval_programming(i["question"], i["reply"], i["expected"])
+                for i in items
+            ]
+            return list(await asyncio.gather(*coros))
+
+        prompt = template.format(items=_format_programming_items(items))
+        result = await self._call(prompt)
+
+        parsed = self._parse_json_array(result, len(items))
+        if parsed is not None:
+            results = []
+            for val in parsed:
+                if isinstance(val, (int, float)):
+                    score = max(0.0, min(1.0, float(val)))
+                    results.append((score, "llm_programming"))
+                elif isinstance(val, str):
+                    m = re.search(r"(\d+\.?\d*)", val)
+                    if m:
+                        score = max(0.0, min(1.0, float(m.group(1))))
+                        results.append((score, "llm_programming"))
+                    else:
+                        results.append((0.0, "llm_programming"))
+                else:
+                    results.append((0.0, "llm_programming"))
+            return results
+
+        logger.warning("批量编程评估解析失败，回退到逐条评估")
+        coros = [
+            self.eval_programming(i["question"], i["reply"], i["expected"])
             for i in items
         ]
         return list(await asyncio.gather(*coros))
