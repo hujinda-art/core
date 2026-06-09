@@ -5,18 +5,19 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "memorystore"
 version = "0.1.0"
-description = "Memory-augmented AI agent with pluggable vector backends"
+description = "Memory-augmented AI agent with pluggable vector backends and MCP server"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
 authors = [{name = "hjd"}]
-keywords = ["memory", "ai-agent", "vector-store", "chromadb", "hnsw"]
+keywords = ["memory", "ai-agent", "vector-store", "chromadb", "hnsw", "mcp"]
 
 dependencies = [
     "openai>=1.0.0",
     "pydantic>=2.0.0",
     "python-dotenv>=1.0.0",
     "tiktoken>=0.12.0",
+    "mcp>=1.0.0",
 ]
 
 [project.optional-dependencies]
@@ -55,6 +56,7 @@ dev = [
 
 [project.scripts]
 memorystore-chat = "src.chat:main"
+memorystore-mcp = "src.mcp_server:main"
 
 [tool.setuptools.packages.find]
 include = ["src", "hnsw_memorystore"]

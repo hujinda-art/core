@@ -9,5 +9,7 @@ experiment_results/
 *.egg-info/
 dist/
 build/
+.eggs/
+.venv/
 .ipynb_checkpoints/
 AGENTS.md
