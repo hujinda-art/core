@@ -191,7 +191,7 @@ class _LongMemChromadb(BaseMem):
                     logger.info("已删除 %d 条被替代的长期记忆 (ChromaDB)", len(valid_ids))
 
         self.collection.add(
-            documents=[clean_q],
+            documents=[q],
             ids=[uuid.uuid4().hex],
             metadatas=[{"role": "pair", "type": "turn", "answer": ans}],
         )
@@ -295,7 +295,7 @@ class _LongMemHNSW(BaseMem):
                     logger.info("已删除 %d 条被替代的长期记忆 (HNSW)", deleted)
 
         self._store.add_memories(
-            texts=[clean_q],
+            texts=[q],
             session_ids=[self._session_key],
             types=["turn"],
             metadatas=[{"role": "pair", "type": "turn", "answer": ans}],
