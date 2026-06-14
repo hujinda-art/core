@@ -1,0 +1,638 @@
+[
+  {
+    "id": "forgetting_hard_v2",
+    "type": "forgetting",
+    "turns": [
+      {
+        "role": "introduction",
+        "q": "接下来我会告诉你一系列信息，有些后面会更新。中间会聊很多别的话题。最后我需要你精确回忆每一条的最新内容，不能搞混。请注意区分相似的信息。"
+      },
+      {
+        "role": "information",
+        "q": "我的同事叫王建明"
+      },
+      {
+        "role": "information",
+        "q": "我的搭档叫王建华"
+      },
+      {
+        "role": "information",
+        "q": "我的主管叫李晓红"
+      },
+      {
+        "role": "information",
+        "q": "我的客户经理叫李晓燕"
+      },
+      {
+        "role": "information",
+        "q": "紧急电话是139-0012-5600"
+      },
+      {
+        "role": "information",
+        "q": "备用电话是139-0012-6500"
+      },
+      {
+        "role": "information",
+        "q": "传真号码是010-8827-3341"
+      },
+      {
+        "role": "information",
+        "q": "门禁密码是580923"
+      },
+      {
+        "role": "information",
+        "q": "项目主密钥是HK-3F7W"
+      },
+      {
+        "role": "information",
+        "q": "保险柜密码是8848"
+      },
+      {
+        "role": "information",
+        "q": "合作方是天宇科技"
+      },
+      {
+        "role": "information",
+        "q": "供应商是天元科技"
+      },
+      {
+        "role": "information",
+        "q": "截止日期是2025年11月8日"
+      },
+      {
+        "role": "information",
+        "q": "复审日期是2025年12月8日"
+      },
+      {
+        "role": "information",
+        "q": "会议室A的主题色是深蓝色"
+      },
+      {
+        "role": "information",
+        "q": "会议室B的主题色是深紫色"
+      },
+      {
+        "role": "information",
+        "q": "主项目代号是银河计划"
+      },
+      {
+        "role": "information",
+        "q": "子项目代号是星辰计划"
+      },
+      {
+        "role": "information",
+        "q": "交付地点是望京SOHO T3-1205"
+      },
+      {
+        "role": "information",
+        "q": "工牌编号是B-7291"
+      },
+      {
+        "role": "information",
+        "q": "签证优先级是P2-HIGH"
+      },
+      {
+        "role": "distractor",
+        "q": "王建明最近的代码review做得怎么样了？"
+      },
+      {
+        "role": "distractor",
+        "q": "你觉得王建华的项目排期合理吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "李晓红之前提过要优化测试流程，进展如何？"
+      },
+      {
+        "role": "distractor",
+        "q": "李晓燕上次跟我说客户那边反馈不错。"
+      },
+      {
+        "role": "distractor",
+        "q": "有人问我王建明和王建华是不是兄弟，你觉得呢？"
+      },
+      {
+        "role": "distractor",
+        "q": "139开头的号码一般属于哪个运营商？"
+      },
+      {
+        "role": "distractor",
+        "q": "010-8827这个号段在哪个城市？"
+      },
+      {
+        "role": "distractor",
+        "q": "密码管理平台推荐用1Password还是Bitwarden？"
+      },
+      {
+        "role": "distractor",
+        "q": "保险柜一般用什么类型的锁比较安全？"
+      },
+      {
+        "role": "distractor",
+        "q": "密钥轮换的推荐周期是多长？"
+      },
+      {
+        "role": "distractor",
+        "q": "580开头的是什么密码格式？"
+      },
+      {
+        "role": "distractor",
+        "q": "HK开头的编号代表什么类型的密钥？"
+      },
+      {
+        "role": "distractor",
+        "q": "天宇科技去年的财报表现如何？"
+      },
+      {
+        "role": "distractor",
+        "q": "你知道天元科技的供应链管理在业内评价怎么样吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "天宇和天元这两家公司有没有业务往来？"
+      },
+      {
+        "role": "distractor",
+        "q": "供应商管理需要注意哪些合规风险？"
+      },
+      {
+        "role": "distractor",
+        "q": "11月的第二个星期三是什么时候？"
+      },
+      {
+        "role": "distractor",
+        "q": "项目截止日期一般怎么设定比较合理？"
+      },
+      {
+        "role": "distractor",
+        "q": "12月8号是个星期几？"
+      },
+      {
+        "role": "distractor",
+        "q": "2025年有多少个工作日？"
+      },
+      {
+        "role": "distractor",
+        "q": "复审和初审的区别是什么？"
+      },
+      {
+        "role": "distractor",
+        "q": "深蓝色配什么颜色的墙纸好看？"
+      },
+      {
+        "role": "distractor",
+        "q": "会议室B的投影仪是不是需要修了？"
+      },
+      {
+        "role": "distractor",
+        "q": "紫色和蓝色的撞色搭配在设计中很常见。"
+      },
+      {
+        "role": "distractor",
+        "q": "你觉得办公室用什么主题色比较好？"
+      },
+      {
+        "role": "distractor",
+        "q": "A会议室能坐下多少人？"
+      },
+      {
+        "role": "distractor",
+        "q": "深紫色和深蓝色在色轮上差多少度？"
+      },
+      {
+        "role": "distractor",
+        "q": "银河系大约有多少颗恒星？"
+      },
+      {
+        "role": "distractor",
+        "q": "星辰和银河在文学里经常被放在一起讨论。"
+      },
+      {
+        "role": "distractor",
+        "q": "主项目通常需要配备多少个子项目？"
+      },
+      {
+        "role": "distractor",
+        "q": "星辰计划的资源分配方案出来了吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "银河计划最新的里程碑完成情况如何？"
+      },
+      {
+        "role": "distractor",
+        "q": "望京SOHO最近停车费涨了吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "T3塔的电梯最近总是排队，太慢了。"
+      },
+      {
+        "role": "distractor",
+        "q": "望京这边的餐饮选择还挺多的。"
+      },
+      {
+        "role": "distractor",
+        "q": "B编号的工牌是哪个部门的？"
+      },
+      {
+        "role": "distractor",
+        "q": "P2级别的需求一般怎么排优先级？"
+      },
+      {
+        "role": "distractor",
+        "q": "签证流程通常需要多长时间？"
+      },
+      {
+        "role": "distractor",
+        "q": "HIGH优先级的工单需要在几小时内响应？"
+      },
+      {
+        "role": "distractor",
+        "q": "今天下午3点有个站会，别忘了参加。"
+      },
+      {
+        "role": "distractor",
+        "q": "把年度总结文档模板发我一下。"
+      },
+      {
+        "role": "distractor",
+        "q": "请问Python里怎么实现单例模式？"
+      },
+      {
+        "role": "distractor",
+        "q": "PostgreSQL的JSONB索引和GIN索引有什么区别？"
+      },
+      {
+        "role": "distractor",
+        "q": "机器学习中的正则化方法有哪些？"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 129 × 47 的结果。"
+      },
+      {
+        "role": "distractor",
+        "q": "最近看了部电影，讲的是时间旅行的故事。"
+      },
+      {
+        "role": "distractor",
+        "q": "你觉得远程办公效率高还是现场办公效率高？"
+      },
+      {
+        "role": "distractor",
+        "q": "把会议纪要整理好发到群组里。"
+      },
+      {
+        "role": "distractor",
+        "q": "上季度的KPI完成率怎么样？"
+      },
+      {
+        "role": "information",
+        "q": "重要通知：紧急电话变更为138-0099-7712，请更新记录。"
+      },
+      {
+        "role": "distractor",
+        "q": "变更通知需要抄送给全体相关人员。"
+      },
+      {
+        "role": "information",
+        "q": "关于项目，主项目代号更新为银河计划-Pro。"
+      },
+      {
+        "role": "distractor",
+        "q": "项目代号变更需要同步更新所有文档。"
+      },
+      {
+        "role": "information",
+        "q": "门禁密码改了，新密码是617034。"
+      },
+      {
+        "role": "distractor",
+        "q": "新的密码策略要求至少8位且包含大小写和特殊字符。"
+      },
+      {
+        "role": "distractor",
+        "q": "每次换密码都记不住，你有什么好的记忆方法吗？"
+      },
+      {
+        "role": "information",
+        "q": "截止日期延期了，改为2025年12月15日。"
+      },
+      {
+        "role": "distractor",
+        "q": "延期后的时间节点需要重新排期。"
+      },
+      {
+        "role": "distractor",
+        "q": "2025年的12月有什么法定假日吗？"
+      },
+      {
+        "role": "information",
+        "q": "我的搭档王建华转到另一个组了，现在搭档是赵晨阳。"
+      },
+      {
+        "role": "distractor",
+        "q": "138开头的号段是哪个运营商的？"
+      },
+      {
+        "role": "distractor",
+        "q": "项目代号加了Pro后缀，和之前的是同一个项目吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "6170这个密码组合有规律吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "搭档变更需要走什么审批流程？"
+      },
+      {
+        "role": "distractor",
+        "q": "赵晨阳是新来的人吗？之前好像没听说过。"
+      },
+      {
+        "role": "distractor",
+        "q": "王建华去了另一个组后还会参与 reviews 吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "截止日期一延再延，要不要重新评估一下项目风险？"
+      },
+      {
+        "role": "distractor",
+        "q": "门禁系统升级后密码规则变了，你注意到了吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "银河计划-Pro 的资源需求跟之前有变化吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "季度复盘会议定在什么时候？"
+      },
+      {
+        "role": "distractor",
+        "q": "请解释一下微服务之间如何实现服务发现。"
+      },
+      {
+        "role": "distractor",
+        "q": "把这份PPT的配色方案换成深色系。"
+      },
+      {
+        "role": "distractor",
+        "q": "最近心情怎么样？要不要一起吃个饭？"
+      },
+      {
+        "role": "distractor",
+        "q": "TCP三次握手的详细过程是什么？"
+      },
+      {
+        "role": "distractor",
+        "q": "Git的cherry-pick和rebase各自适用什么场景？"
+      },
+      {
+        "role": "distractor",
+        "q": "保险柜的机械锁和电子锁哪个更安全？"
+      },
+      {
+        "role": "distractor",
+        "q": "今天下午的站会取消了。"
+      },
+      {
+        "role": "distractor",
+        "q": "新来的同事叫什么名字？"
+      },
+      {
+        "role": "distractor",
+        "q": "合作方的合同续签了吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "供应商最近的报价有变动吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "王建国好像也是团队的，是负责什么来着？"
+      },
+      {
+        "role": "distractor",
+        "q": "我印象中备用电话好像也是139开头的？"
+      },
+      {
+        "role": "distractor",
+        "q": "保险柜密码是不是8888？我有点记混了。"
+      },
+      {
+        "role": "distractor",
+        "q": "天元科技和天宇科技是不是同一家公司？"
+      },
+      {
+        "role": "distractor",
+        "q": "会议室C的主题色是不是红色？"
+      },
+      {
+        "role": "distractor",
+        "q": "星辰计划和银河计划哪个是子项目来着？"
+      },
+      {
+        "role": "distractor",
+        "q": "截止日期好像是在11月？还是12月？"
+      },
+      {
+        "role": "distractor",
+        "q": "门禁密码好像是以5开头的六位数？"
+      },
+      {
+        "role": "distractor",
+        "q": "我之前的搭档姓赵来着？还是姓王？"
+      },
+      {
+        "role": "distractor",
+        "q": "主项目叫银河计划还是银河计划-Pro？等一下我记得是银河计划。"
+      },
+      {
+        "role": "distractor",
+        "q": "门禁密码以前是以58开头的吗？我有点模糊了。"
+      },
+      {
+        "role": "distractor",
+        "q": "赵晨阳和王建明是不是一个组的？"
+      },
+      {
+        "role": "distractor",
+        "q": "银河计划这个名字是不是后来改了？"
+      },
+      {
+        "role": "distractor",
+        "q": "138和139开头的电话号码有什么区别？"
+      },
+      {
+        "role": "distractor",
+        "q": "深蓝色的会议室是不是能坐20人？"
+      },
+      {
+        "role": "distractor",
+        "q": "望京SOHO的T3是哪一栋来着？"
+      },
+      {
+        "role": "distractor",
+        "q": "保险柜密码是不是四位数？"
+      },
+      {
+        "role": "distractor",
+        "q": "星辰计划和主项目的关系是什么？"
+      },
+      {
+        "role": "evaluation",
+        "q": "合作方的全名是什么？",
+        "expected": "天宇科技"
+      },
+      {
+        "role": "evaluation",
+        "q": "我的主管叫什么名字？只回答全名。",
+        "expected": "李晓红"
+      },
+      {
+        "role": "evaluation",
+        "q": "保险柜密码是多少？只回答数字。",
+        "expected": "8848"
+      },
+      {
+        "role": "evaluation",
+        "q": "供应商的公司名称是什么？",
+        "expected": "天元科技"
+      },
+      {
+        "role": "evaluation",
+        "q": "工牌编号是什么？",
+        "expected": "B-7291"
+      },
+      {
+        "role": "evaluation",
+        "q": "我的同事叫王建国对吗？如果不对，请说出他的正确全名。",
+        "expected": "王建明"
+      },
+      {
+        "role": "evaluation",
+        "q": "客户经理叫李小红还是李晓燕？请说准确全名。",
+        "expected": "李晓燕"
+      },
+      {
+        "role": "evaluation",
+        "q": "会议室A和B的主题色分别是什么？按A、B顺序回答。",
+        "expected": "深蓝色、深紫色"
+      },
+      {
+        "role": "evaluation",
+        "q": "紧急联络号是139-0012-5600还是139-0012-6500？只回答紧急号码。",
+        "expected": "138-0099-7712"
+      },
+      {
+        "role": "evaluation",
+        "q": "截止日期是11月8日还是12月8日？请只回答最终的截止日期。",
+        "expected": "2025年12月15日"
+      },
+      {
+        "role": "evaluation",
+        "q": "紧急电话现在是什么号码？只回答号码。",
+        "expected": "138-0099-7712"
+      },
+      {
+        "role": "evaluation",
+        "q": "当前的门禁密码是什么？只回答密码。",
+        "expected": "617034"
+      },
+      {
+        "role": "evaluation",
+        "q": "主项目代号现在叫什么？",
+        "expected": "银河计划-Pro"
+      },
+      {
+        "role": "evaluation",
+        "q": "截止日期最终定在什么时候？只回答日期。",
+        "expected": "2025年12月15日"
+      },
+      {
+        "role": "evaluation",
+        "q": "我现在的搭档是谁？只回答名字。",
+        "expected": "赵晨阳"
+      },
+      {
+        "role": "evaluation",
+        "q": "紧急电话变更之前是什么号码？",
+        "expected": "139-0012-5600"
+      },
+      {
+        "role": "evaluation",
+        "q": "门禁密码变更之前是什么？",
+        "expected": "580923"
+      },
+      {
+        "role": "evaluation",
+        "q": "主项目代号变更之前叫什么？",
+        "expected": "银河计划"
+      },
+      {
+        "role": "evaluation",
+        "q": "我之前的搭档叫什么名字？",
+        "expected": "王建华"
+      },
+      {
+        "role": "evaluation",
+        "q": "截止日期变更之前是什么时候？",
+        "expected": "2025年11月8日"
+      },
+      {
+        "role": "evaluation",
+        "q": "139-0012-6500是什么类型的号码？",
+        "expected": "备用电话"
+      },
+      {
+        "role": "evaluation",
+        "q": "深紫色的会议室是哪一个？",
+        "expected": "会议室B"
+      },
+      {
+        "role": "evaluation",
+        "q": "子项目的代号是什么？",
+        "expected": "星辰计划"
+      },
+      {
+        "role": "evaluation",
+        "q": "传真号码是多少？",
+        "expected": "010-8827-3341"
+      },
+      {
+        "role": "evaluation",
+        "q": "签证优先级是什么？",
+        "expected": "P2-HIGH"
+      },
+      {
+        "role": "evaluation",
+        "q": "请列出所有发生过变更的项目，说出每个项目变更前和变更后的内容。",
+        "expected": "紧急电话从139-0012-5600变更为138-0099-7712；门禁密码从580923变更为617034；主项目代号从银河计划变更为银河计划-Pro；截止日期从2025年11月8日变更为2025年12月15日；搭档从王建华变更为赵晨阳"
+      },
+      {
+        "role": "evaluation",
+        "q": "王建明和李晓燕在公司里分别是什么角色？",
+        "expected": "同事、客户经理"
+      },
+      {
+        "role": "evaluation",
+        "q": "天宇科技和天元科技分别和我是什么关系？",
+        "expected": "合作方、供应商"
+      },
+      {
+        "role": "evaluation",
+        "q": "139-0012-5600和138-0099-7712这两个号码分别是什么？",
+        "expected": "紧急电话原号码、紧急电话新号码"
+      },
+      {
+        "role": "evaluation",
+        "q": "2025年11月8日和2025年12月15日分别代表什么？",
+        "expected": "截止日期原日期、截止日期新日期"
+      }
+    ]
+  }
+]

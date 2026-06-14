@@ -41,8 +41,15 @@ def _store_dir() -> str:
     return os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "memorystore"))
 
 
+_HYBRID = os.getenv("LONG_MEM_HYBRID", "false").strip().lower() in ("true", "1", "yes")
+
+
 def _build_hnsw_embedding():
-    """根据环境变量 HNSW_EMBEDDING 构建嵌入模型。"""
+    """根据环境变量 HNSW_EMBEDDING 构建嵌入模型。
+
+    当 LONG_MEM_HYBRID=true 且使用 bge-m3 时，自动切换到 BgeM3HybridEmbedding
+    以启用 Dense+Sparse 混合检索。
+    """
     kind = os.getenv("HNSW_EMBEDDING", "bge-m3").strip().lower()
     device = os.getenv("HNSW_EMBEDDING_DEVICE", "cuda").strip().lower()
 
@@ -53,6 +60,9 @@ def _build_hnsw_embedding():
         from hnsw_memorystore.embedding import SentenceEmbedding
         return SentenceEmbedding()
     else:
+        if _HYBRID:
+            from hnsw_memorystore.embedding import BgeM3HybridEmbedding
+            return BgeM3HybridEmbedding(device=device)
         from hnsw_memorystore.embedding import BgeM3Embedding
         return BgeM3Embedding(device=device)
 
@@ -219,15 +229,17 @@ class _LongMemChromadb(BaseMem):
 
 
 class _LongMemHNSW(BaseMem):
-    """HNSW 后端"""
+    """HNSW 后端，支持可选的 Dense+Sparse 混合检索。"""
 
     def __init__(self, session_key: str, store: str) -> None:
-        from hnsw_memorystore.embedding import BaseEmbedding
         from hnsw_memorystore.store import HnswMemoryStore
 
         self._session_key = session_key
         self._store_path = os.path.join(store, f"hnsw_{session_key}")
         self._embed = _build_hnsw_embedding()
+        self._hybrid = _HYBRID
+        self._dense_weight = float(os.getenv("LONG_MEM_HYBRID_DENSE_WEIGHT", "0.7"))
+        self._sparse_weight = float(os.getenv("LONG_MEM_HYBRID_SPARSE_WEIGHT", "0.3"))
 
         dim = self._embed.embed(["test"]).shape[1]
         self._store = HnswMemoryStore(
@@ -243,7 +255,15 @@ class _LongMemHNSW(BaseMem):
     def get_mem(self, q: str) -> list[MessageDTO]:
         if self._store.count() == 0:
             return []
-        results = self._store.search(q, k=LONG_MEM_N, session_id=self._session_key)
+        if self._hybrid:
+            results = self._store.search_hybrid(
+                q, k=LONG_MEM_N,
+                dense_weight=self._dense_weight,
+                sparse_weight=self._sparse_weight,
+                session_id=self._session_key,
+            )
+        else:
+            results = self._store.search(q, k=LONG_MEM_N, session_id=self._session_key)
         if not results:
             return []
         messages = []
@@ -253,7 +273,8 @@ class _LongMemHNSW(BaseMem):
             full = f"[用户] {r.text}\n[助手] {ans}"
             messages.append(MessageDTO(role=Role.USER, content=full))
         if messages:
-            logger.info("  [HNSW] 检索出 %d 条长期记忆", len(messages))
+            mode = "HNSW-Hybrid" if self._hybrid else "HNSW"
+            logger.info("  [%s] 检索出 %d 条长期记忆", mode, len(messages))
         return messages
 
     def update_mem(self, q: str, ans: str) -> None:
@@ -284,7 +305,15 @@ class _LongMemHNSW(BaseMem):
         """搜索语义相近的旧记忆，返回 (id, text) 列表。"""
         if self._store.count() == 0:
             return []
-        results = self._store.search(q, k=LONG_MEM_N, session_id=self._session_key)
+        if self._hybrid:
+            results = self._store.search_hybrid(
+                q, k=LONG_MEM_N,
+                dense_weight=self._dense_weight,
+                sparse_weight=self._sparse_weight,
+                session_id=self._session_key,
+            )
+        else:
+            results = self._store.search(q, k=LONG_MEM_N, session_id=self._session_key)
         if not results:
             return []
         return [(str(r.id), r.text) for r in results]
@@ -312,6 +341,9 @@ class LongMem(BaseMem):
       HNSW_EMBEDDING=bge-m3|bge-large-zh|sentence-transformers  （默认 bge-m3）
       HNSW_EMBEDDING_DEVICE=cuda|cpu  （默认 cuda）
       LONG_MEM_ANTI_POLLUTION=true|false  （默认 true，写入前提炼+矛盾检测）
+      LONG_MEM_HYBRID=true|false  （默认 false，启用 Dense+Sparse 混合检索，仅 HNSW+bge-m3）
+      LONG_MEM_HYBRID_DENSE_WEIGHT=0.7  （混合检索 Dense 分数权重）
+      LONG_MEM_HYBRID_SPARSE_WEIGHT=0.3  （混合检索 Sparse 分数权重）
     """
 
     def __init__(self, session_id: str | None = None) -> None:
@@ -321,8 +353,8 @@ class LongMem(BaseMem):
 
         backend = os.getenv("LONG_MEM_BACKEND", "chromadb").strip().lower()
         logger.info(
-            "LongMem 后端: %s | session=%s | anti_pollution=%s",
-            backend, session_key[:12], _ANTI_POLLUTION,
+            "LongMem 后端: %s | session=%s | anti_pollution=%s | hybrid=%s",
+            backend, session_key[:12], _ANTI_POLLUTION, _HYBRID,
         )
 
         if backend == "hnsw":

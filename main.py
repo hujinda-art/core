@@ -213,7 +213,12 @@ async def _run_single(
 
     backend = os.getenv("LONG_MEM_BACKEND", "chromadb").strip().lower()
     embed = os.getenv("HNSW_EMBEDDING", "").strip().lower()
+    hybrid = os.getenv("LONG_MEM_HYBRID", "false").strip().lower() in ("true", "1", "yes")
     suffix = f"{backend}_{embed}" if embed else backend
+    if hybrid:
+        dense_w = os.getenv("LONG_MEM_HYBRID_DENSE_WEIGHT", "0.7")
+        sparse_w = os.getenv("LONG_MEM_HYBRID_SPARSE_WEIGHT", "0.3")
+        suffix += f"_hybrid_{dense_w}_{sparse_w}"
     session_id = f"{os.path.splitext(test_file_name)[0]}_{strategy_name}_{suffix}"
     try:
         mem = mem_class(session_id=session_id)
