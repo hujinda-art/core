@@ -1,0 +1,638 @@
+[
+  {
+    "id": "pollution_test",
+    "type": "forgetting",
+    "turns": [
+      {
+        "role": "introduction",
+        "q": "接下来我会告诉你一些信息，有些后面会更新。请以最新的信息为准回答问题。"
+      },
+      {
+        "role": "information",
+        "q": "我住在北京朝阳区"
+      },
+      {
+        "role": "information",
+        "q": "项目截止日期是3月15日"
+      },
+      {
+        "role": "information",
+        "q": "我的邮箱是zhangsan@mail.com"
+      },
+      {
+        "role": "information",
+        "q": "团队负责人是刘伟"
+      },
+      {
+        "role": "information",
+        "q": "服务器密码是alpha-7742"
+      },
+      {
+        "role": "information",
+        "q": "办公室在5楼503室"
+      },
+      {
+        "role": "information",
+        "q": "我的车牌号是京B·39K58"
+      },
+      {
+        "role": "information",
+        "q": "项目预算是120万元"
+      },
+      {
+        "role": "information",
+        "q": "合作公司叫恒信达"
+      },
+      {
+        "role": "information",
+        "q": "WiFi密码是Home2024!"
+      },
+      {
+        "role": "distractor",
+        "q": "今天北京的风挺大的，出门记得关窗。"
+      },
+      {
+        "role": "distractor",
+        "q": "项目管理的工具你们用的Jira还是Trello？"
+      },
+      {
+        "role": "distractor",
+        "q": "邮箱的垃圾邮件过滤怎么做比较好？"
+      },
+      {
+        "role": "distractor",
+        "q": "刘伟上周的汇报做得不错。"
+      },
+      {
+        "role": "distractor",
+        "q": "服务器部署一般用什么方式？Docker还是直接装？"
+      },
+      {
+        "role": "distractor",
+        "q": "5楼的电梯今天好像在维修。"
+      },
+      {
+        "role": "distractor",
+        "q": "现在北京的车牌摇号很难中。"
+      },
+      {
+        "role": "distractor",
+        "q": "项目预算需要每个月做一次审批吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "恒信达那边的合同签了没有？"
+      },
+      {
+        "role": "distractor",
+        "q": "WiFi信号在客厅比较弱，可能需要加个中继器。"
+      },
+      {
+        "role": "distractor",
+        "q": "请计算 347 + 891 的结果。"
+      },
+      {
+        "role": "distractor",
+        "q": "最近看了部不错的纪录片，推荐给你。"
+      },
+      {
+        "role": "distractor",
+        "q": "PostgreSQL和MySQL在复杂查询上哪个性能更好？"
+      },
+      {
+        "role": "distractor",
+        "q": "下班后要不要一起去跑步？"
+      },
+      {
+        "role": "distractor",
+        "q": "把昨天的数据报表整理一下发给我。"
+      },
+      {
+        "role": "information",
+        "q": "对了，我刚搬到海淀区了，不在朝阳了。"
+      },
+      {
+        "role": "information",
+        "q": "项目截止日期推迟了，改到4月20日。"
+      },
+      {
+        "role": "information",
+        "q": "我换了个新邮箱，现在是zhangsan@newmail.cn。"
+      },
+      {
+        "role": "information",
+        "q": "团队负责人换人了，现在是陈芳负责。"
+      },
+      {
+        "role": "distractor",
+        "q": "海淀区那边的房价比朝阳区便宜一些。"
+      },
+      {
+        "role": "distractor",
+        "q": "推迟截止日期需要走什么审批流程？"
+      },
+      {
+        "role": "distractor",
+        "q": "新邮箱需要绑定手机号吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "陈芳之前在产品部干过，能力很强。"
+      },
+      {
+        "role": "distractor",
+        "q": "密码管理器LastPass和1Password你推荐哪个？"
+      },
+      {
+        "role": "distractor",
+        "q": "算法题：给定一个数组，找出两个数使它们的和等于目标值。"
+      },
+      {
+        "role": "distractor",
+        "q": "办公室的空气净化器滤芯该换了。"
+      },
+      {
+        "role": "distractor",
+        "q": "上次出差的报销单交了吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "最近你们团队的站会频率怎么样？"
+      },
+      {
+        "role": "distractor",
+        "q": "今天外卖点了什么？"
+      },
+      {
+        "role": "distractor",
+        "q": "VPN连接有什么好用的方案？"
+      },
+      {
+        "role": "distractor",
+        "q": "密码最好定期更换，你觉得多久合适？"
+      },
+      {
+        "role": "distractor",
+        "q": "请解释一下什么是微服务架构。"
+      },
+      {
+        "role": "information",
+        "q": "服务器密码改了，现在是beta-9951。"
+      },
+      {
+        "role": "information",
+        "q": "我搬到507室了，不在503了。"
+      },
+      {
+        "role": "distractor",
+        "q": "507室比503室采光更好。"
+      },
+      {
+        "role": "distractor",
+        "q": "服务器安全策略最近有什么更新？"
+      },
+      {
+        "role": "distractor",
+        "q": "border-bottom在CSS里怎么设置虚线？"
+      },
+      {
+        "role": "distractor",
+        "q": "你们团队的OKR这季度定了没有？"
+      },
+      {
+        "role": "distractor",
+        "q": "听说朝阳区开了一家不错的日料店。"
+      },
+      {
+        "role": "distractor",
+        "q": "密码强度要求至少包含大小写数字和特殊字符。"
+      },
+      {
+        "role": "distractor",
+        "q": "项目预算超了需要走额外审批吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "我以前住朝阳的时候每天通勤要一个小时。"
+      },
+      {
+        "role": "distractor",
+        "q": "把会议记录整理一下发给陈芳。"
+      },
+      {
+        "role": "information",
+        "q": "车牌号换了，现在是京A·62M03。"
+      },
+      {
+        "role": "information",
+        "q": "项目预算审批后调整为150万元。"
+      },
+      {
+        "role": "information",
+        "q": "合作公司换成润和科技了，不是恒信达。"
+      },
+      {
+        "role": "information",
+        "q": "WiFi密码也改了，新密码是Secure2025#。"
+      },
+      {
+        "role": "distractor",
+        "q": "新能源车牌号是不是不用摇号？"
+      },
+      {
+        "role": "distractor",
+        "q": "预算超支的主要原因是什么？"
+      },
+      {
+        "role": "distractor",
+        "q": "润和科技的行业口碑怎么样？"
+      },
+      {
+        "role": "distractor",
+        "q": "家里WiFi的5G频段比2.4G频段更快。"
+      },
+      {
+        "role": "distractor",
+        "q": "今天下午有个全员会议。"
+      },
+      {
+        "role": "distractor",
+        "q": "请把最新的项目文档更新一下。"
+      },
+      {
+        "role": "distractor",
+        "q": "海淀区有很多不错的咖啡馆。"
+      },
+      {
+        "role": "distractor",
+        "q": "团队成员变动后需要更新权限配置吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "你觉得远程办公和现场办公哪个效率更高？"
+      },
+      {
+        "role": "distractor",
+        "q": "周末去看了一场电影，挺好看的。"
+      },
+      {
+        "role": "distractor",
+        "q": "朝阳区那边的交通越来越拥堵了。"
+      },
+      {
+        "role": "distractor",
+        "q": "3月15日那天好像有个产品发布会。"
+      },
+      {
+        "role": "distractor",
+        "q": "刘伟说他下周要出差。"
+      },
+      {
+        "role": "distractor",
+        "q": "alpha开头的密码我记得挺难输的。"
+      },
+      {
+        "role": "distractor",
+        "q": "503室那边是销售部吧？"
+      },
+      {
+        "role": "distractor",
+        "q": "京B开头的车牌现在的限行规则是什么？"
+      },
+      {
+        "role": "distractor",
+        "q": "恒信达的业务范围好像扩大了。"
+      },
+      {
+        "role": "distractor",
+        "q": "Home2024这个密码是不是太简单了？"
+      },
+      {
+        "role": "distractor",
+        "q": "merge request和pull request是一回事吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "海淀区有什么好吃的早餐店？"
+      },
+      {
+        "role": "distractor",
+        "q": "大家觉得线上会议和线下会议哪个更高效？"
+      },
+      {
+        "role": "distractor",
+        "q": "项目文档的版本管理用什么工具？"
+      },
+      {
+        "role": "distractor",
+        "q": "最近有什么好看的剧推荐？"
+      },
+      {
+        "role": "distractor",
+        "q": "请将以下一段话翻译成英文：今天天气晴朗。"
+      },
+      {
+        "role": "distractor",
+        "q": "beta开头的密码是不是随机生成的？"
+      },
+      {
+        "role": "distractor",
+        "q": "新办公室的空调温度合适吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "你们考勤系统用的什么平台？"
+      },
+      {
+        "role": "distractor",
+        "q": "Linux的crontab怎么设置定时任务？"
+      },
+      {
+        "role": "distractor",
+        "q": "5G网络覆盖怎么样了？"
+      },
+      {
+        "role": "distractor",
+        "q": "上次说的那个bug修了没有？"
+      },
+      {
+        "role": "distractor",
+        "q": "把昨天的会议纪要更新到Wiki上。"
+      },
+      {
+        "role": "distractor",
+        "q": "团队这周的冲刺目标是什么？"
+      },
+      {
+        "role": "distractor",
+        "q": "住海淀的话去西二旗通勤方便吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "服务器最近有没有做安全扫描？"
+      },
+      {
+        "role": "distractor",
+        "q": "你听说过那家新开的湘菜馆吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "CSS Grid和Flexbox各自适用什么场景？"
+      },
+      {
+        "role": "distractor",
+        "q": "有没有好的屏幕录制工具推荐？"
+      },
+      {
+        "role": "distractor",
+        "q": "Secure2025这个密码强度怎么样？"
+      },
+      {
+        "role": "distractor",
+        "q": "150万的预算够不够用三个月？"
+      },
+      {
+        "role": "distractor",
+        "q": "今天天气不错，适合出去走走。"
+      },
+      {
+        "role": "distractor",
+        "q": "项目进度跟上了吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "docker-compose和Kubernetes的区别是什么？"
+      },
+      {
+        "role": "distractor",
+        "q": "京A车牌有什么特殊含义吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "新邮箱的垃圾邮件多不多？"
+      },
+      {
+        "role": "distractor",
+        "q": "最近有篇文章说蛋白质摄入量应该增加。"
+      },
+      {
+        "role": "distractor",
+        "q": "Hash表的时间复杂度是多少？"
+      },
+      {
+        "role": "distractor",
+        "q": "507室的热水器是不是也坏了？"
+      },
+      {
+        "role": "distractor",
+        "q": "陈芳说下周一要开项目复盘会。"
+      },
+      {
+        "role": "distractor",
+        "q": "4月份有什么法定假日？"
+      },
+      {
+        "role": "distractor",
+        "q": "浏览器里怎么清除Cookie？"
+      },
+      {
+        "role": "distractor",
+        "q": "润和科技那边的接口文档出了没有？"
+      },
+      {
+        "role": "distractor",
+        "q": "你们一般用什么通讯工具？飞书还是企微？"
+      },
+      {
+        "role": "distractor",
+        "q": "预算表里的差旅费占比多少？"
+      },
+      {
+        "role": "distractor",
+        "q": "密码自动填充功能在手机上好用吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "Redis的缓存穿透和缓存击穿分别是什么意思？"
+      },
+      {
+        "role": "distractor",
+        "q": "海淀区的图书馆环境怎么样？"
+      },
+      {
+        "role": "distractor",
+        "q": "项目周报的模板谁有？发我一份。"
+      },
+      {
+        "role": "distractor",
+        "q": "VPN连接后网速变慢了怎么办？"
+      },
+      {
+        "role": "distractor",
+        "q": "Git的cherry-pick和merge有什么区别？"
+      },
+      {
+        "role": "distractor",
+        "q": "今天中午食堂人多不多？"
+      },
+      {
+        "role": "distractor",
+        "q": "你家小区的快递柜够用吗？"
+      },
+      {
+        "role": "distractor",
+        "q": "Kubernetes集群的节点数一般设多少比较合适？"
+      },
+      {
+        "role": "evaluation",
+        "q": "我现在住在哪个区？只回答区名。",
+        "expected": "海淀区"
+      },
+      {
+        "role": "evaluation",
+        "q": "项目截止日期最终定在什么时候？只回答日期。",
+        "expected": "4月20日"
+      },
+      {
+        "role": "evaluation",
+        "q": "我当前使用的邮箱地址是什么？",
+        "expected": "zhangsan@newmail.cn"
+      },
+      {
+        "role": "evaluation",
+        "q": "现在团队负责人是谁？只回答名字。",
+        "expected": "陈芳"
+      },
+      {
+        "role": "evaluation",
+        "q": "服务器密码是什么？只回答密码。",
+        "expected": "beta-9951"
+      },
+      {
+        "role": "evaluation",
+        "q": "我的办公室在哪？只回答楼层和房间号。",
+        "expected": "5楼507室"
+      },
+      {
+        "role": "evaluation",
+        "q": "我的车牌号是什么？",
+        "expected": "京A·62M03"
+      },
+      {
+        "role": "evaluation",
+        "q": "项目预算最终是多少？",
+        "expected": "150万元"
+      },
+      {
+        "role": "evaluation",
+        "q": "合作公司叫什么名字？",
+        "expected": "润和科技"
+      },
+      {
+        "role": "evaluation",
+        "q": "WiFi密码是什么？准确回答。",
+        "expected": "Secure2025#"
+      },
+      {
+        "role": "evaluation",
+        "q": "我之前说住在朝阳区，现在还是吗？",
+        "expected": "不是，现在住在海淀区"
+      },
+      {
+        "role": "evaluation",
+        "q": "截止日期3月15日还作数吗？",
+        "expected": "不作数，已改为4月20日"
+      },
+      {
+        "role": "evaluation",
+        "q": "邮箱zhangsan@mail.com还能用吗？",
+        "expected": "不能，已改为zhangsan@newmail.cn"
+      },
+      {
+        "role": "evaluation",
+        "q": "刘伟还是团队负责人吗？",
+        "expected": "不是，现在是陈芳"
+      },
+      {
+        "role": "evaluation",
+        "q": "密码alpha-7742还有效吗？",
+        "expected": "没有效，已改为beta-9951"
+      },
+      {
+        "role": "evaluation",
+        "q": "503室还是我的办公室吗？",
+        "expected": "不是，已搬到507室"
+      },
+      {
+        "role": "evaluation",
+        "q": "京B·39K58还是我的车牌吗？",
+        "expected": "不是，已改为京A·62M03"
+      },
+      {
+        "role": "evaluation",
+        "q": "项目预算120万够不够？",
+        "expected": "已调整为150万"
+      },
+      {
+        "role": "evaluation",
+        "q": "恒信达是不是我们的合作公司？",
+        "expected": "不是，已换为润和科技"
+      },
+      {
+        "role": "evaluation",
+        "q": "WiFi密码是不是Home2024!？",
+        "expected": "不是，已改为Secure2025#"
+      },
+      {
+        "role": "evaluation",
+        "q": "我住的地方从哪里搬到了哪里？",
+        "expected": "从朝阳区搬到海淀区"
+      },
+      {
+        "role": "evaluation",
+        "q": "项目截止日期从什么时候改到了什么时候？",
+        "expected": "从3月15日改为4月20日"
+      },
+      {
+        "role": "evaluation",
+        "q": "邮箱从哪个改成了哪个？",
+        "expected": "从zhangsan@mail.com改为zhangsan@newmail.cn"
+      },
+      {
+        "role": "evaluation",
+        "q": "团队负责人从谁换成了谁？",
+        "expected": "从刘伟换成陈芳"
+      },
+      {
+        "role": "evaluation",
+        "q": "服务器密码从什么改成了什么？",
+        "expected": "从alpha-7742改为beta-9951"
+      },
+      {
+        "role": "evaluation",
+        "q": "办公室从哪个房间搬到了哪个房间？",
+        "expected": "从503室搬到507室"
+      },
+      {
+        "role": "evaluation",
+        "q": "车牌号从什么换成了什么？",
+        "expected": "从京B·39K58改为京A·62M03"
+      },
+      {
+        "role": "evaluation",
+        "q": "项目预算从多少调整到了多少？",
+        "expected": "从120万调整为150万"
+      },
+      {
+        "role": "evaluation",
+        "q": "合作公司从哪家换成了哪家？",
+        "expected": "从恒信达换为润和科技"
+      },
+      {
+        "role": "evaluation",
+        "q": "WiFi密码从什么改成了什么？",
+        "expected": "从Home2024!改为Secure2025#"
+      }
+    ]
+  }
+]
