@@ -1,15 +1,21 @@
-chromadb>=0.4.0
+# ============================================================
+# Core dependencies (always required)
+# ============================================================
 openai>=1.0.0
-pydantic>=2.0.0
 python-dotenv>=1.0.0
+pydantic>=2.0.0
 tiktoken>=0.12.0
+chromadb>=0.4.0
 
-# HNSW 后端（可选：设置 LONG_MEM_BACKEND=hnsw 时需要）
+# ============================================================
+# HNSW backend (required when LONG_MEM_BACKEND=hnsw)
+# ============================================================
 hnswlib>=0.8.0
 numpy>=1.24.0
 
-# HNSW 嵌入模型（可选：根据 HNSW_EMBEDDING 选择安装）
-# HNSW_EMBEDDING=bge-m3 或 bge-large-zh 时：
-#   pip install FlagEmbedding
-# HNSW_EMBEDDING=sentence-transformers 时：
-#   pip install sentence-transformers
+# HNSW embedding models (required based on HNSW_EMBEDDING):
+#   HNSW_EMBEDDING=bge-m3 | bge-large-zh  -> FlagEmbedding
+#   HNSW_EMBEDDING=sentence-transformers   -> sentence-transformers
+# Uncomment the one you need:
+# FlagEmbedding
+# sentence-transformers
